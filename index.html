@@ -87,11 +87,33 @@
         }
 
         .intro {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto 30px;
+            padding: 40px;
             background-color: rgba(44, 62, 80, 0.9);
-            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .intro-text h2 {
+            margin-top: 0;
+            font-size: 2rem;
+        }
+
+        .intro-text .role {
+            margin: -10px 0 20px;
+            color: #3498db;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .intro-text p {
+            line-height: 1.6;
         }
 
         /* Skills Section */
@@ -236,11 +258,11 @@
         }
 
         .intro img {
+            flex-shrink: 0;
             border-radius: 50%;
             width: 250px;
             height: 250px;
             object-fit: cover;
-            margin-bottom: 20px;
             border: 5px solid #3498db;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
@@ -253,9 +275,15 @@
             nav a, .social a {
                 font-size: 1rem;
             }
+            .intro {
+                flex-direction: column;
+                gap: 20px;
+                padding: 25px;
+                text-align: center;
+            }
             .intro img {
-                width: 150px;
-                height: 150px;
+                width: 180px;
+                height: 180px;
             }
         }
 
@@ -365,9 +393,13 @@
         <!-- Introduction Section -->
         <section id="about">
             <div class="intro">
-                <img src="profile.webp" alt="Profile Picture of Ian Conradie" width="250" height="250">
-                <h2>About Me</h2>
-                <p>Hello, I’m Ian Conradie! <br><br>I am a Games Developer with 2 years of professional industry experience and a degree in Games Development. Specialising in 3D and VR game design and development, I bring hands-on skills in game modelling, design, and interactive experiences. I combine creativity, technical expertise, and a drive for innovation to build engaging games. With a clear path towards becoming a Senior Game Developer, I continue to grow my skills in 3D and VR development and take on new challenges in the industry. <br><br>Welcome to my portfolio!</p>
+                <img src="profile.webp" alt="Photo of Ian Conradie" width="250" height="250">
+                <div class="intro-text">
+                    <h2>Hello, I’m Ian Conradie</h2>
+                    <p class="role">Games Developer</p>
+                    <p>I am a Games Developer with 2 years of professional industry experience and a degree in Games Development. Specialising in 3D and VR game design and development, I bring hands-on skills in game modelling, design, and interactive experiences. I combine creativity, technical expertise, and a drive for innovation to build engaging games. With a clear path towards becoming a Senior Game Developer, I continue to grow my skills in 3D and VR development and take on new challenges in the industry.</p>
+                    <p>Welcome to my portfolio!</p>
+                </div>
             </div>
         </section>
 
