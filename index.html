@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ian Conradie | Portfolio</title>
+    <meta name="theme-color" content="#0b0f1a">
     <meta name="author" content="Ian Conradie">
     <meta name="copyright" content="© Ian Conradie. All rights reserved.">
     <meta name="description" content="Ian Conradie - Games and Systems Developer specialising in 3D and VR games, plus software, mobile and full-stack development.">
@@ -17,20 +18,25 @@
     <meta name="twitter:card" content="summary">
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Self-hosted fonts (SIL Open Font Licence, see fonts/LICENSE-OFL) */
+        @font-face { font-family: 'Inter'; src: url(fonts/inter-latin-400-normal.woff2) format('woff2'); font-weight: 400; font-display: swap; }
+        @font-face { font-family: 'Inter'; src: url(fonts/inter-latin-700-normal.woff2) format('woff2'); font-weight: 700; font-display: swap; }
+        @font-face { font-family: 'Space Grotesk'; src: url(fonts/space-grotesk-latin-700-normal.woff2) format('woff2'); font-weight: 700; font-display: swap; }
+        @font-face { font-family: 'Orbitron'; src: url(fonts/orbitron-latin-700-normal.woff2) format('woff2'); font-weight: 700; font-display: swap; }
+        @font-face { font-family: 'Press Start 2P'; src: url(fonts/press-start-2p-latin-400-normal.woff2) format('woff2'); font-weight: 400; font-display: swap; }
+        @font-face { font-family: 'Silkscreen'; src: url(fonts/silkscreen-latin-400-normal.woff2) format('woff2'); font-weight: 400; font-display: swap; }
+
         html {
             scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            background: linear-gradient(to right, #2c3e50, #3498db);
+            background: #0b0f1a;
             color: #ecf0f1;
         }
 
@@ -540,11 +546,11 @@
             max-width: 700px;
             max-height: 85vh;
             padding: 20px;
-            border: none;
-            border-radius: 8px;
-            background-color: #fefefe;
-            color: #2c3e50;
+            border-radius: 4px;
+            background-color: #121a2a;
+            color: #ecf0f1;
             overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         dialog.modal::backdrop {
@@ -568,7 +574,15 @@
         }
 
         .close:hover, .close:focus-visible {
-            color: #000;
+            color: #fff;
+        }
+
+        .modal a {
+            color: #3498db;
+        }
+
+        .modal p {
+            line-height: 1.6;
         }
 
         /* Video and iframe responsiveness */
@@ -594,6 +608,52 @@
             display: block;
             margin: 0 auto 10px;
         }
+
+        /* ===== Elemental theme: dark background with glows and accents in
+           the six element colours (water, fire, earth, air, electricity, nature) ===== */
+        body { position: relative; }
+        body::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+            background:
+                radial-gradient(600px 600px at 5% 3%, rgba(52, 152, 219, 0.16), transparent 70%),
+                radial-gradient(550px 550px at 95% 25%, rgba(231, 76, 60, 0.12), transparent 70%),
+                radial-gradient(600px 600px at 3% 50%, rgba(46, 204, 113, 0.10), transparent 70%),
+                radial-gradient(550px 550px at 97% 70%, rgba(155, 89, 182, 0.10), transparent 70%),
+                radial-gradient(600px 600px at 10% 95%, rgba(241, 196, 15, 0.08), transparent 70%); }
+        #about { --accent: #3498db; } #skills { --accent: #f1c40f; } #projects { --accent: #e67e22; } #contact { --accent: #2ecc71; }
+        header { background-color: rgba(11, 15, 26, 0.8); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+        .top-bar h1 { font-family: 'Orbitron', sans-serif; font-weight: 700; text-shadow: none; }
+        nav a:hover, .social a:hover { color: #f1c40f; text-shadow: none; }
+        h2, h3, .section-title { font-family: 'Space Grotesk', sans-serif; }
+        .intro { background-color: #121a2a; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
+        .intro::after { background: linear-gradient(90deg, transparent 38%, rgba(15, 21, 34, 0.9) 58%, #0f1522); }
+        .intro-text .role, .skill-group h3, .featured .label, .filters button, .sub-title { font-family: 'Silkscreen', monospace; letter-spacing: 1px; }
+        .intro-text .role { color: var(--accent); font-size: 1rem; }
+        .skill-group, .featured { background: linear-gradient(var(--accent) 0 0) top left / 14px 3px, linear-gradient(var(--accent) 0 0) top left / 3px 14px, linear-gradient(var(--accent) 0 0) top right / 14px 3px, linear-gradient(var(--accent) 0 0) top right / 3px 14px, linear-gradient(var(--accent) 0 0) bottom left / 14px 3px, linear-gradient(var(--accent) 0 0) bottom left / 3px 14px, linear-gradient(var(--accent) 0 0) bottom right / 14px 3px, linear-gradient(var(--accent) 0 0) bottom right / 3px 14px, rgba(255, 255, 255, 0.04); background-repeat: no-repeat; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 4px; box-shadow: none; }
+        .skill-group h3 { color: var(--accent); font-size: 0.95rem; font-weight: 400; }
+        .skill-group li img { background: rgba(255, 255, 255, 0.92); border-radius: 3px; }
+        .featured .label { color: var(--accent); }
+        .btn { border-radius: 0; background: var(--accent); color: #0b0f1a; box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5); }
+        .btn:hover { background: #f39c12; }
+        .filters button { border-radius: 0; border-color: rgba(255, 255, 255, 0.3); font-size: 0.85rem; }
+        .filters button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #0b0f1a; }
+        .project-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 4px; }
+        .project-card:hover, .project-card:focus-visible { transform: translateY(-4px); box-shadow: 0 0 0 2px var(--accent), 0 12px 30px rgba(230, 126, 34, 0.25); }
+        .contact form input, .contact form textarea { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 0; color: #ecf0f1; }
+        .contact form button { border-radius: 0; background: var(--accent); color: #0b0f1a; box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5); }
+        footer { background: transparent; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+        @media (max-width: 768px) { .intro { background-color: #0f1522; } }
+
+
+        /* Arcade touches: pixel-font section headings, blinking cursor after
+           the greeting, hard pixel shadows */
+        .section-title { font-family: 'Press Start 2P', monospace; font-weight: 400; font-size: 1.15rem; line-height: 1.6; text-shadow: 2px 2px 0 var(--accent); }
+        .skill-group, .featured { box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.45); }
+        .project-card:hover, .project-card:focus-visible { transform: translate(-3px, -3px); box-shadow: 5px 5px 0 var(--accent); }
+        .intro-text h2::after { content: "_"; margin-left: 4px; color: var(--accent); animation: blink 1.1s steps(1) infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        @media (prefers-reduced-motion: reduce) { .intro-text h2::after { animation: none; } }
+        @media (max-width: 768px) { .section-title { font-size: 0.95rem; } }
+
     </style>
 </head>
 <body>
@@ -622,9 +682,8 @@
                 <div class="intro-text">
                     <h2>Hello, I’m Ian Conradie</h2>
                     <p class="role">Games Developer · Systems Developer</p>
-                    <p>I am a Games and Systems Developer with 2 years of professional industry experience and a degree in Games Development. I specialise in 3D and VR game design and development, with hands-on skills in game modelling, design and interactive experiences. Beyond games, I also build software and systems, mobile apps and full-stack web applications.</p>
-                    <p>I combine creativity, technical expertise and a drive for innovation, and I'm working towards becoming a Senior Game Developer while taking on new challenges in the industry.</p>
-                    <p>Welcome to my portfolio!</p>
+                    <p>I'm a games and systems developer who loves building the rules that make games fun: combat systems, elemental reactions and AI opponents. With 2 years of professional experience and a degree in Games Development, I work across Unity, Godot and Unreal, from 3D and VR worlds to fast-paced 2D arena games. Beyond games, I also build software and systems, mobile apps and full-stack web applications.</p>
+                    <p>When I'm not making games, I'm playing them, usually losing hours in a sprawling RPG or jumping into a few rounds of an FPS.</p>
                 </div>
             </div>
         </section>
