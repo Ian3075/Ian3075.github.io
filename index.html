@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ian Conradie - Portfolio">
     <title>Ian Conradie | Portfolio</title>
+    <meta name="description" content="Ian Conradie - Games Developer specialising in 3D and VR. Unity, Blender, C# and more.">
+
+    <!-- Link previews (LinkedIn, WhatsApp, etc.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ian3075.github.io/">
+    <meta property="og:title" content="Ian Conradie | Portfolio">
+    <meta property="og:description" content="Games Developer specialising in 3D and VR. Unity, Blender, C# and more.">
+    <meta property="og:image" content="https://ian3075.github.io/og-image.jpg">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -23,11 +34,13 @@
             padding: 10px;
         }
 
-        /* Flexbox for name and LinkedIn*/
+        /* Flexbox for name and social links */
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
             padding-bottom: 10px;
         }
 
@@ -44,27 +57,23 @@
             margin-top: 10px;
         }
 
+        nav a, .social a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
         nav a {
-            color: #ecf0f1;
             margin: 0 15px;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
         }
 
-        nav a:hover {
-            color: #3498db;
-            text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.6);
+        .social a {
+            margin-left: 15px;
         }
 
-        .linkedin a {
-            color: #ecf0f1;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .linkedin a:hover {
+        nav a:hover, .social a:hover,
+        nav a:focus-visible, .social a:focus-visible {
             color: #3498db;
             text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.6);
         }
@@ -85,11 +94,11 @@
         }
 
         /* Skills Section */
-        .skills, .projects {
+        .skills {
             margin-bottom: 50px;
         }
 
-        .skills ul, .projects ul {
+        .skills ul {
             list-style: none;
             padding: 0;
             display: grid;
@@ -97,38 +106,125 @@
             gap: 10px;
         }
 
-        .skills li, .projects li {
+        .skills li {
             background: rgba(52, 152, 219, 0.7);
             padding: 10px;
             border-radius: 5px;
             transition: transform 0.3s;
         }
 
-        .skills li:hover, .projects li:hover {
+        .skills li:hover {
             transform: scale(1.05);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
+        /* Projects Section */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+            background: rgba(52, 152, 219, 0.7);
+            color: #ecf0f1;
+            font: inherit;
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover, .project-card:focus-visible {
+            transform: scale(1.04);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card:focus-visible {
+            outline: 3px solid #ecf0f1;
+            outline-offset: 2px;
+        }
+
+        .project-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            display: block;
+            background: #2c3e50;
+        }
+
+        .project-card span {
+            display: block;
+            padding: 10px 12px;
+            font-weight: 700;
+        }
+
+        .project-card small {
+            display: block;
+            font-weight: 400;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
         /* Contact Section */
         .contact {
-            max-width: 600px; 
-            margin: 0 auto;   
-            padding: 20px;    
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
         .contact form {
             display: flex;
-            flex-direction: column; 
+            flex-direction: column;
         }
 
         .contact form input,
         .contact form textarea {
-            width: 100%;        
+            width: 100%;
             padding: 10px;
             margin: 10px 0;
             border-radius: 5px;
             border: 1px solid #ccc;
-            box-sizing: border-box; 
+            box-sizing: border-box;
+            font: inherit;
+        }
+
+        .contact form button {
+            margin-top: 10px;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact form button:hover {
+            background: #1f2d3a;
+        }
+
+        .contact form button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        #form-status {
+            min-height: 1.5em;
+            margin-top: 15px;
+            font-weight: 700;
+        }
+
+        #form-status.error {
+            color: #ffb3a7;
         }
 
         footer {
@@ -136,8 +232,6 @@
             color: #ecf0f1;
             text-align: center;
             padding: 20px 0;
-            position: relative;
-            z-index: 10;
         }
 
         .intro img {
@@ -155,7 +249,7 @@
             .top-bar h1 {
                 font-size: 2rem;
             }
-            nav a {
+            nav a, .social a {
                 font-size: 1rem;
             }
             .intro img {
@@ -175,53 +269,49 @@
                 font-size: 0.9rem;
                 margin: 0 10px;
             }
+            .social a {
+                margin: 0 15px 0 0;
+            }
             .skills, .projects, .contact {
                 margin-bottom: 30px;
             }
         }
 
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
+        /* Project dialogs (native <dialog> sits above everything, closes on Esc) */
+        dialog.modal {
             width: 80%;
-            max-width: 600px;
-            max-height: 80vh; /* Set a maximum height for modal content */
-            overflow-y: auto;  /* Enable vertical scrolling if content overflows */
+            max-width: 700px;
+            max-height: 85vh;
+            padding: 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #fefefe;
             color: #2c3e50;
+            overflow-y: auto;
         }
 
-        .modal-content h3 {
+        dialog.modal::backdrop {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal h3 {
             margin-top: 0;
         }
 
         .close {
-            color: #aaa;
             float: right;
+            padding: 0 5px;
+            border: none;
+            background: none;
+            color: #888;
             font-size: 28px;
             font-weight: bold;
+            line-height: 1;
             cursor: pointer;
         }
 
-        .close:hover, .close:focus {
+        .close:hover, .close:focus-visible {
             color: #000;
-            text-decoration: none;
-            cursor: pointer;
         }
 
         /* Video and iframe responsiveness */
@@ -229,30 +319,35 @@
             margin-top: 20px;
         }
 
-        .video-container video, .video-container iframe {
+        .video-container video {
             width: 100%;
-            max-width: 100%;  /* Ensures video doesn't overflow */
             height: auto;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: 0;
         }
 
         /* Ensures images are responsive */
-        .modal-content img {
+        .modal img {
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 0 auto;
+            margin: 0 auto 10px;
         }
-
     </style>
 </head>
 <body>
     <!-- Header Section -->
     <header>
-        <!-- Top Bar with name and LinkedIn -->
+        <!-- Top Bar with name and social links -->
         <div class="top-bar">
             <h1>Ian Conradie</h1>
-            <div class="linkedin">
-                <a href="https://www.linkedin.com/in/ian-conradie-823059249?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B8yJlGxw3QJWWBcMvG5DD9Q%3D%3D" target="_blank">LinkedIn</a>
+            <div class="social">
+                <a href="https://www.linkedin.com/in/ian-conradie-823059249" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/Ian3075" target="_blank" rel="noopener">GitHub</a>
             </div>
         </div>
 
@@ -265,240 +360,243 @@
         </nav>
     </header>
 
-    <!-- Introduction Section -->
-    <section id="about">
-        <div class="intro">
-            <img src="formalprofilepic2.jpg" alt="Profile Picture of Ian Conradie">
-            <h2>About Me</h2>
-            <p>Hello, I’m Ian Conradie! <br><br>I am a highly adaptable and passionate final-year Games Development student with a strong academic record and a deep love for learning. Specializing in 3D and VR game design and development, I have honed my skills in game modeling, design, and interactive experiences. My goal is to leverage my creativity, technical expertise, and drive for innovation to contribute to cutting-edge game projects. With a clear path towards becoming a Senior Game Developer, I am eager to further develop my skills in 3D and VR game development and take on new challenges in the industry. <br><br>Welcome to my portfolio!</p>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-        <h2>Skills</h2>
-        <div class="skills">
-            <ul>
-                <li>HTML, CSS, JavaScript, PHP</li>
-                <li>C#, Java, Python</li>
-                <li>.NET Framework, .NET Core, SQL</li>
-                <li>Unity, Blender</li>
-                <li>Flutter, Dart</li>
-                <li>UI/UX Design with Figma</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="projects">
-            <ul>
-                <li onclick="openModal('modal1')"> Fruit Catcher</li>
-                <li onclick="openModal('modal2')"> Car Shooter</li>
-                <li onclick="openModal('modal3')"> Adventure Time</li>
-                <li onclick="openModal('modal4')"> Obsidian Mirage</li>
-                <li onclick="openModal('modal5')"> Tech Expo</li>
-                <li onclick="openModal('modal6')"> Terrain with Rain</li>
-                <li onclick="openModal('modal7')"> Obstacle Course</li>
-                <li onclick="openModal('modal8')"> Gaming PC</li>
-                <li onclick="openModal('modal9')"> Ramen Shop</li>
-                <li onclick="openModal('modal10')"> Robot</li>
-                <li onclick="openModal('modal11')"> Adventure Collectable</li>
-                
-            </ul>
-        </div>
-    </section>
-
-    <!-- Modals for Project Information -->
-    <!-- Modal 1 -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal1')">&times;</span>
-            <h3>Fruit Catcher</h3>
-            <p>This Unity project is a 3D arcade-style game where the player controls a character to catch falling fruits and avoid bombs. The player moves using the mouse, and their size can be adjusted via the mouse scroll wheel. Each fruit caught increases the score by 1 point, while each bomb hit reduces the player's lives by 1. The player starts with 3 lives, visually represented by hearts. When all lives are lost, a game over screen appears, displaying the player's final score and offering the option to restart the game. The project emphasizes player movement, object interaction, and a simple scoring and lives system.</p>
-            <div class="video-container">
-                <video controls>
-                    <source src="fruitCatcherGame.mp4" type="video/mp4">
-                </video>
+    <main>
+        <!-- Introduction Section -->
+        <section id="about">
+            <div class="intro">
+                <img src="profile.webp" alt="Profile Picture of Ian Conradie" width="250" height="250">
+                <h2>About Me</h2>
+                <p>Hello, I’m Ian Conradie! <br><br>I am a highly adaptable and passionate final-year Games Development student with a strong academic record and a deep love for learning. Specializing in 3D and VR game design and development, I have honed my skills in game modeling, design, and interactive experiences. My goal is to leverage my creativity, technical expertise, and drive for innovation to contribute to cutting-edge game projects. With a clear path towards becoming a Senior Game Developer, I am eager to further develop my skills in 3D and VR game development and take on new challenges in the industry. <br><br>Welcome to my portfolio!</p>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Modal 2 --> 
-    <div id="modal2" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal2')">&times;</span>
-            <h3>Car Shooter</h3>
-            <p>The Car Shooting Game is a thrilling 2D top-down arcade racer made in Unity that combines fast-paced racing with intense vehicular combat. Players control customizable cars, racing against AI opponents while utilizing weapons like missiles and lasers to eliminate rivals. The game features various vibrant tracks, retro pixel-art graphics, and engaging gameplay mechanics, including drifting and braking, to enhance the racing experience.</p>
-            <div class="video-container">
-                <video controls>
-                    <source src="carShooterGame.mp4" type="video/mp4">
-                </video>
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills">
+                <ul>
+                    <li>HTML, CSS, JavaScript, PHP</li>
+                    <li>C#, Java, Python</li>
+                    <li>.NET Framework, .NET Core, SQL</li>
+                    <li>Unity, Blender</li>
+                    <li>Flutter, Dart</li>
+                    <li>UI/UX Design with Figma</li>
+                </ul>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Modal 3 --> 
-    <div id="modal3" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal3')">&times;</span>
-            <h3>Adventure Time</h3>
-            <p>Adventure Time is a 2D platformer game made in Unity. In this game, the player controls a character that embarks on an epic adventure through multiple levels. The objective is to guide the character through various obstacles, defeat enemies, collect valuable items, and reach the end goal to complete each level.</p>
-            <img src="adventureTimeMenu.png" alt="Screenshot of Adventure Time Menu"> <br>
-            <img src="adventureTimeLevel1.png" alt="Screenshot of Adventure Time Level 1"> <br>
-            <img src="adventureTimeLevel2.png" alt="Screenshot of Adventure Time Level 2">
-        </div>
-    </div>
-
-    <!-- Modal 4 --> 
-    <div id="modal4" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal4')">&times;</span>
-            <h3>Obsidian Mirage</h3>
-            <p>Obsidian Mirage is a unique and challenging 3D platformer game made in Unity in a group. Players take on the role of Y2, a robot on a singular mission: to move forward and collect coins for their people. The game's objective is simple yet deceptively difficult - navigate through intricate and surreal landscapes filled with obsidian platforms, obstacles, and collectible coins.</p>
-            <img src="obsidianMirage.png" alt="Screenshot of Obsidian Mirage">
-        </div>
-    </div>
-
-    <!-- Modal 5 --> 
-    <div id="modal5" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal5')">&times;</span>
-            <h3>Tech Expo</h3>
-            <p> Tech Expo is a group project made using Unity and Blender, including 3D models, textures, and animations. In this project we made a virtual tour of the Tech Expo South Africa event.</p>
-            <p> View the virtual tour on <a href="https://www.youtube.com/watch?v=hEBXsjY-IWs&ab_channel=musketeermemoirs">YouTube Tech Expo</a></p>
-        </div>
-    </div>
-
-    <!-- Modal 6 --> 
-    <div id="modal6" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal6')">&times;</span>
-            <h3>Terrain with Rain</h3>
-            <p>Terrain with Rain is a custom sculpted terrain made in Unity. In this project the terrain has numerous textures and objects such as trees and rocks, and animated rainfall.</p>
-            <div class="video-container">
-                <video controls>
-                    <source src="terrainRain2.mp4" type="video/mp4">
-                </video>
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="projects">
+                <button class="project-card" data-modal="modal1"><img src="thumbs/fruitCatcherGame.webp" alt="" loading="lazy"><span>Fruit Catcher<small>Unity · 3D</small></span></button>
+                <button class="project-card" data-modal="modal2"><img src="thumbs/carShooterGame.webp" alt="" loading="lazy"><span>Car Shooter<small>Unity · 2D</small></span></button>
+                <button class="project-card" data-modal="modal3"><img src="thumbs/adventureTimeMenu.webp" alt="" loading="lazy"><span>Adventure Time<small>Unity · 2D platformer</small></span></button>
+                <button class="project-card" data-modal="modal4"><img src="thumbs/obsidianMirage.webp" alt="" loading="lazy"><span>Obsidian Mirage<small>Unity · 3D · Group project</small></span></button>
+                <button class="project-card" data-modal="modal5"><img src="https://img.youtube.com/vi/hEBXsjY-IWs/hqdefault.jpg" alt="" loading="lazy"><span>Tech Expo<small>Unity · Blender · Group project</small></span></button>
+                <button class="project-card" data-modal="modal6"><img src="thumbs/terrainRain2.webp" alt="" loading="lazy"><span>Terrain with Rain<small>Unity · 3D</small></span></button>
+                <button class="project-card" data-modal="modal7"><img src="thumbs/obstacleCourse2.webp" alt="" loading="lazy"><span>Obstacle Course<small>Unity · 3D</small></span></button>
+                <button class="project-card" data-modal="modal8"><img src="thumbs/gamingPC.webp" alt="" loading="lazy"><span>Gaming PC<small>Blender</small></span></button>
+                <button class="project-card" data-modal="modal9"><img src="thumbs/ramenShop.webp" alt="" loading="lazy"><span>Ramen Shop<small>Blender · Low poly</small></span></button>
+                <button class="project-card" data-modal="modal10"><img src="thumbs/robot.webp" alt="" loading="lazy"><span>Robot<small>Blender</small></span></button>
+                <button class="project-card" data-modal="modal11"><img src="thumbs/adventureCollectable.webp" alt="" loading="lazy"><span>Adventure Collectable<small>Unity · 3D</small></span></button>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- Modal 7 --> 
-    <div id="modal7" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal7')">&times;</span>
-            <h3>Obstacle Course</h3>
-            <p>Obstacle Course is a 3D obstacle course game made in Unity.The game's basic but difficult goal is to make your way past a series of perilous obstacles and reach the winning level. It is set in a colourful and imaginative obstacle course. Players can only use three lives at a time, and when they are all used up, the game is over for them.</p>
-            <div class="video-container"></div>
-                <video controls>
-                    <source src="obstacleCourse2.mp4" type="video/mp4">
-                </video>
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact Me</h2>
+            <div class="contact">
+                <!-- Formspree: replace YOUR_FORM_ID with the ID from https://formspree.io (e.g. "xyzabcde") -->
+                <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
+                    <input type="email" name="email" placeholder="Your Email" autocomplete="email" required>
+                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <input type="hidden" name="_subject" value="New message from portfolio contact form">
+                    <button type="submit">Send</button>
+                </form>
+                <p id="form-status" role="status" aria-live="polite"></p>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <!-- Modal 8 --> 
-    <div id="modal8" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal8')">&times;</span>
-            <h3>Gaming PC</h3>
-            <p>Gaming PC was modeled in Blender. In this project the computer has spinning RGB cooling fans and a sphere on the desktop that reacts based on audio.</p>
-            <div class="video-container"></div>
-                <video controls>
-                    <source src="gamingPC.mp4" type="video/mp4">
-                </video>
-            </div>
+    <!-- Dialogs for Project Information -->
+    <dialog id="modal1" class="modal" aria-labelledby="modal1-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal1-title">Fruit Catcher</h3>
+        <p>This Unity project is a 3D arcade-style game where the player controls a character to catch falling fruits and avoid bombs. The player moves using the mouse, and their size can be adjusted via the mouse scroll wheel. Each fruit caught increases the score by 1 point, while each bomb hit reduces the player's lives by 1. The player starts with 3 lives, visually represented by hearts. When all lives are lost, a game over screen appears, displaying the player's final score and offering the option to restart the game. The project emphasizes player movement, object interaction, and a simple scoring and lives system.</p>
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/fruitCatcherGame.webp">
+                <source src="fruitCatcherGame.mp4" type="video/mp4">
+            </video>
         </div>
-    </div>
+    </dialog>
 
-    <!-- Modal 9 --> 
-    <div id="modal9" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal9')">&times;</span>
-            <h3>Ramen Shop</h3>
-            <p>This Ramen Shop was modeled in Blender. This is a low poly depiction of a ramen shop featuring a ramen bowl on the roof, made with various textures and objects.</p>
-            <img src="ramenShop.png" alt="Screenshot of Ramen Shop"> <br>
-            <img src="ramenShopBowl.png" alt="Screenshot of Ramen Bowl">
+    <dialog id="modal2" class="modal" aria-labelledby="modal2-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal2-title">Car Shooter</h3>
+        <p>The Car Shooting Game is a thrilling 2D top-down arcade racer made in Unity that combines fast-paced racing with intense vehicular combat. Players control customizable cars, racing against AI opponents while utilizing weapons like missiles and lasers to eliminate rivals. The game features various vibrant tracks, retro pixel-art graphics, and engaging gameplay mechanics, including drifting and braking, to enhance the racing experience.</p>
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/carShooterGame.webp">
+                <source src="carShooterGame.mp4" type="video/mp4">
+            </video>
         </div>
-    </div>
+    </dialog>
 
-    <!-- Modal 10 --> 
-    <div id="modal10" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal10')">&times;</span>
-            <h3>Robot</h3>
-            <p>This Robot was modeled in Blender. This cute robot was mainly modeled using cylinder objects and includes a glossy metallic surface.</p>
-            <img src="robot.png" alt="Screenshot of Robot">
-        </div>
-    </div>
+    <dialog id="modal3" class="modal" aria-labelledby="modal3-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal3-title">Adventure Time</h3>
+        <p>Adventure Time is a 2D platformer game made in Unity. In this game, the player controls a character that embarks on an epic adventure through multiple levels. The objective is to guide the character through various obstacles, defeat enemies, collect valuable items, and reach the end goal to complete each level.</p>
+        <img src="adventureTimeMenu.webp" alt="Screenshot of Adventure Time Menu" loading="lazy">
+        <img src="adventureTimeLevel1.webp" alt="Screenshot of Adventure Time Level 1" loading="lazy">
+        <img src="adventureTimeLevel2.webp" alt="Screenshot of Adventure Time Level 2" loading="lazy">
+    </dialog>
 
-    <!-- Modal 11 -->
-    <!--
-    <div id="modal11" class="modal"></div>
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('modal11')">&times;</span>
-            <h3>Adventure Collectable</h3>
-            <p>Adventure Collectable is a game made in Unity. In this game the player navigates through a custom made terrain that includes various textures, objects such as trees and rocks, and various particle effects such as a waterfall, falling leaves and pick up item particles. Sound effects used include item pick up sounds, obstacle collions and a Japanese themed ambience music.</p>
-            <div class="video-container"></div>
-                <video controls>
-                    <source src="adventureCollectable.mp4" type="video/mp4">
-                </video>
-            </div>
-        </div>
-    </div> 
-    -->
+    <dialog id="modal4" class="modal" aria-labelledby="modal4-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal4-title">Obsidian Mirage</h3>
+        <p>Obsidian Mirage is a unique and challenging 3D platformer game made in Unity in a group. Players take on the role of Y2, a robot on a singular mission: to move forward and collect coins for their people. The game's objective is simple yet deceptively difficult - navigate through intricate and surreal landscapes filled with obsidian platforms, obstacles, and collectible coins.</p>
+        <img src="obsidianMirage.webp" alt="Screenshot of Obsidian Mirage" loading="lazy">
+    </dialog>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <div class="contact">
-            <form id="contact-form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-                <input type="submit" value="Send">
-            </form>
+    <dialog id="modal5" class="modal" aria-labelledby="modal5-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal5-title">Tech Expo</h3>
+        <p>Tech Expo is a group project made using Unity and Blender, including 3D models, textures, and animations. In this project we made a virtual tour of the Tech Expo South Africa event.</p>
+        <div class="video-container">
+            <iframe data-src="https://www.youtube-nocookie.com/embed/hEBXsjY-IWs" title="Tech Expo virtual tour" allow="encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
         </div>
-    </section>
+        <p>Or watch it on <a href="https://www.youtube.com/watch?v=hEBXsjY-IWs" target="_blank" rel="noopener">YouTube</a>.</p>
+    </dialog>
+
+    <dialog id="modal6" class="modal" aria-labelledby="modal6-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal6-title">Terrain with Rain</h3>
+        <p>Terrain with Rain is a custom sculpted terrain made in Unity. In this project the terrain has numerous textures and objects such as trees and rocks, and animated rainfall.</p>
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/terrainRain2.webp">
+                <source src="terrainRain2.mp4" type="video/mp4">
+            </video>
+        </div>
+    </dialog>
+
+    <dialog id="modal7" class="modal" aria-labelledby="modal7-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal7-title">Obstacle Course</h3>
+        <p>Obstacle Course is a 3D obstacle course game made in Unity. The game's basic but difficult goal is to make your way past a series of perilous obstacles and reach the winning level. It is set in a colourful and imaginative obstacle course. Players can only use three lives at a time, and when they are all used up, the game is over for them.</p>
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/obstacleCourse2.webp">
+                <source src="obstacleCourse2.mp4" type="video/mp4">
+            </video>
+        </div>
+    </dialog>
+
+    <dialog id="modal8" class="modal" aria-labelledby="modal8-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal8-title">Gaming PC</h3>
+        <p>Gaming PC was modeled in Blender. In this project the computer has spinning RGB cooling fans and a sphere on the desktop that reacts based on audio.</p>
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/gamingPC.webp">
+                <source src="gamingPC.mp4" type="video/mp4">
+            </video>
+        </div>
+    </dialog>
+
+    <dialog id="modal9" class="modal" aria-labelledby="modal9-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal9-title">Ramen Shop</h3>
+        <p>This Ramen Shop was modeled in Blender. This is a low poly depiction of a ramen shop featuring a ramen bowl on the roof, made with various textures and objects.</p>
+        <img src="ramenShop.webp" alt="Screenshot of Ramen Shop" loading="lazy">
+        <img src="ramenShopBowl.webp" alt="Screenshot of Ramen Bowl" loading="lazy">
+    </dialog>
+
+    <dialog id="modal10" class="modal" aria-labelledby="modal10-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal10-title">Robot</h3>
+        <p>This Robot was modeled in Blender. This cute robot was mainly modeled using cylinder objects and includes a glossy metallic surface.</p>
+        <img src="robot.webp" alt="Screenshot of Robot" loading="lazy">
+    </dialog>
+
+    <dialog id="modal11" class="modal" aria-labelledby="modal11-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal11-title">Adventure Collectable</h3>
+        <p>Adventure Collectable is a game made in Unity. In this game the player navigates through a custom made terrain that includes various textures, objects such as trees and rocks, and various particle effects such as a waterfall, falling leaves and pick up item particles. Sound effects used include item pick up sounds, obstacle collisions and a Japanese themed ambience music.</p>
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/adventureCollectable.webp">
+                <source src="adventureCollectable.mp4" type="video/mp4">
+            </video>
+        </div>
+    </dialog>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Ian Conradie. All rights reserved.</p>
+        <p>&copy; <span id="year">2026</span> Ian Conradie. All rights reserved.</p>
     </footer>
 
-   <!-- JavaScript for Modal and Form Submission -->
-<script>
-    function openModal(modalId) {
-            var modal = document.getElementById(modalId);
-            modal.style.display = "block";
-        }
+    <!-- JavaScript for Dialogs and Form Submission -->
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-        function closeModal(modalId) {
-            var modal = document.getElementById(modalId);
-            modal.style.display = "none";
-        }
+        // Open a project's dialog from its card
+        document.querySelectorAll('.project-card').forEach(function(card) {
+            card.addEventListener('click', function() {
+                var dialog = document.getElementById(card.dataset.modal);
+                // Load the YouTube embed only when its dialog is opened
+                dialog.querySelectorAll('iframe[data-src]').forEach(function(frame) {
+                    if (!frame.src) frame.src = frame.dataset.src;
+                });
+                dialog.showModal();
+            });
+        });
 
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            var modals = document.getElementsByClassName('modal');
-            for (var i = 0; i < modals.length; i++) {
-                if (event.target === modals[i]) {
-                    modals[i].style.display = "none";
-                }
-            }
-        }
+        document.querySelectorAll('dialog.modal').forEach(function(dialog) {
+            dialog.querySelector('.close').addEventListener('click', function() {
+                dialog.close();
+            });
 
-    // JavaScript for form submission
-    document.getElementById('contact-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        document.getElementById('form-status').textContent = 'Thank you for your message. I will get back to you soon.';
-        setTimeout(function() {
-            document.getElementById('form-status').textContent = '';
-            document.getElementById('contact-form').reset();
-        }, 5000);
-    });
-</script>    
+            // Close when clicking the backdrop outside the dialog box
+            dialog.addEventListener('click', function(event) {
+                var rect = dialog.getBoundingClientRect();
+                var inside = event.clientX >= rect.left && event.clientX <= rect.right &&
+                             event.clientY >= rect.top && event.clientY <= rect.bottom;
+                if (!inside) dialog.close();
+            });
+
+            // Stop any playing media when the dialog closes (button, backdrop or Esc)
+            dialog.addEventListener('close', function() {
+                dialog.querySelectorAll('video').forEach(function(video) { video.pause(); });
+                dialog.querySelectorAll('iframe[data-src]').forEach(function(frame) { frame.removeAttribute('src'); });
+            });
+        });
+
+        // Send the contact form through Formspree
+        var form = document.getElementById('contact-form');
+        var formStatus = document.getElementById('form-status');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            var button = form.querySelector('button[type="submit"]');
+            button.disabled = true;
+            button.textContent = 'Sending...';
+            formStatus.className = '';
+            formStatus.textContent = '';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            }).then(function(response) {
+                if (!response.ok) throw new Error('Request failed');
+                formStatus.textContent = 'Thank you for your message. I will get back to you soon.';
+                form.reset();
+            }).catch(function() {
+                formStatus.className = 'error';
+                formStatus.textContent = 'Sorry, your message could not be sent. Please try again or reach me on LinkedIn.';
+            }).finally(function() {
+                button.disabled = false;
+                button.textContent = 'Send';
+            });
+        });
+    </script>
 </body>
 </html>
