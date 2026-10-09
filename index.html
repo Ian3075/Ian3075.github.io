@@ -380,6 +380,7 @@
                     <li>C#, Java, Python</li>
                     <li>.NET Framework, .NET Core, SQL</li>
                     <li>Unity, Blender</li>
+                    <li>Godot, GDScript</li>
                     <li>Flutter, Dart</li>
                     <li>UI/UX Design with Figma</li>
                 </ul>
@@ -390,6 +391,7 @@
         <section id="projects">
             <h2>Projects</h2>
             <div class="projects">
+                <button class="project-card" data-modal="modal12"><img src="thumbs/elementalWizard.webp" alt="" loading="lazy"><span>Elemental Wizard<small>Godot · 2D isometric</small></span></button>
                 <button class="project-card" data-modal="modal1"><img src="thumbs/fruitCatcherGame.webp" alt="" loading="lazy"><span>Fruit Catcher<small>Unity · 3D</small></span></button>
                 <button class="project-card" data-modal="modal2"><img src="thumbs/carShooterGame.webp" alt="" loading="lazy"><span>Car Shooter<small>Unity · 2D</small></span></button>
                 <button class="project-card" data-modal="modal3"><img src="thumbs/adventureTimeMenu.webp" alt="" loading="lazy"><span>Adventure Time<small>Unity · 2D platformer</small></span></button>
@@ -422,6 +424,17 @@
     </main>
 
     <!-- Dialogs for Project Information -->
+    <dialog id="modal12" class="modal" aria-labelledby="modal12-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal12-title">Elemental Wizard</h3>
+        <p>Elemental Wizard is a fast-paced 1v1 spell-shooter made in Godot, with 2D pixel-art graphics and an isometric view. Each player wields six spells, one for each element: water, fire, earth, air, electricity and nature. The combat system is inspired by real science: elements react with each other to apply debuffs, so combining air and fire, for example, triggers a Combustion debuff. Play against a friend locally or take on a CPU opponent with adjustable difficulty. Mix your spells, out-think your opponent, and be the last wizard standing.</p>
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/elementalWizard.webp">
+                <source src="elementalWizard.mp4" type="video/mp4">
+            </video>
+        </div>
+    </dialog>
+
     <dialog id="modal1" class="modal" aria-labelledby="modal1-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal1-title">Fruit Catcher</h3>
