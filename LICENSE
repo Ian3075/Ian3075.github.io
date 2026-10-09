@@ -23,8 +23,9 @@ Exceptions
 - Icons in the icons/ folder come from devicon and are used under the MIT
   licence (see icons/LICENSE-devicon). The logos they depict are trademarks
   of their respective owners.
-- Fonts in the fonts/ folder (Inter, Space Grotesk, Orbitron and Silkscreen)
-  are used under the SIL Open Font Licence (see fonts/LICENSE-OFL).
+- Fonts in the fonts/ folder (Inter, Space Grotesk, Orbitron, Silkscreen and
+  Press Start 2P) are used under the SIL Open Font Licence
+  (see fonts/LICENSE-OFL).
 - Videos embedded from YouTube remain subject to YouTube's terms.
 - Third-party assets used within the projects (for example asset packs,
   music, sound effects or textures) remain the property of their respective
