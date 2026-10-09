@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ian Conradie | Portfolio</title>
+    <meta name="author" content="Ian Conradie">
+    <meta name="copyright" content="© Ian Conradie. All rights reserved.">
     <meta name="description" content="Ian Conradie - Games Developer specialising in 3D and VR. Unity, Blender, C# and more.">
 
     <!-- Link previews (LinkedIn, WhatsApp, etc.) -->
@@ -19,6 +21,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -28,45 +34,49 @@
             color: #ecf0f1;
         }
 
-        /* App Bar (Header) */
+        /* App Bar (Header) - stays visible while scrolling */
         header {
-            background-color: rgba(0, 0, 0, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
             color: #ecf0f1;
-            padding: 10px;
+            padding: 10px 20px;
         }
 
-        /* Flexbox for name and social links */
+        /* Name, navigation and social links on one row */
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
-            padding-bottom: 10px;
+            gap: 10px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .top-bar h1 {
             margin: 0;
-            font-size: 3rem;
+            font-size: 2rem;
             font-family: 'Orbitron', sans-serif;
             text-shadow: 2px 2px #2c3e50;
         }
 
-        /* Navigation Tabs */
-        nav {
-            text-align: center;
-            margin-top: 10px;
+        .top-bar h1 a {
+            color: inherit;
+            text-decoration: none;
         }
 
         nav a, .social a {
             color: #ecf0f1;
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
         }
 
         nav a {
-            margin: 0 15px;
+            margin: 0 12px;
         }
 
         .social a {
@@ -81,50 +91,215 @@
 
         /* Main content sections */
         section {
-            padding: 50px;
+            padding: 40px 50px;
             text-align: center;
-            margin: 20px 0;
+            margin: 0;
+            scroll-margin-top: 30px;
+        }
+
+        /* Pixel accent under section headings: one pixel per element
+           (water, fire, earth, air, electricity, nature) */
+        .section-title {
+            font-size: 2rem;
+            margin: 0 0 30px;
+        }
+
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 8px;
+            height: 8px;
+            margin: 12px 0 0 calc(50% - 34px);
+            background: #3498db;
+            box-shadow: 12px 0 #e74c3c, 24px 0 #a0522d, 36px 0 #dfe6e9,
+                        48px 0 #f1c40f, 60px 0 #2ecc71;
+        }
+
+        .sub-title {
+            margin: 40px 0 15px;
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
 
         .intro {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
             background-color: rgba(44, 62, 80, 0.9);
-            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .intro-text h2 {
+            margin-top: 0;
+            font-size: 2rem;
+        }
+
+        .intro-text .role {
+            margin: -10px 0 20px;
+            color: #3498db;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .intro-text p {
+            line-height: 1.6;
         }
 
         /* Skills Section */
-        .skills {
-            margin-bottom: 50px;
+        .skill-groups {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: left;
         }
 
-        .skills ul {
+        .skill-group {
+            background-color: rgba(44, 62, 80, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-group h3 {
+            margin: 0 0 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: #3498db;
+        }
+
+        .skill-group ul {
             list-style: none;
+            margin: 0;
             padding: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 10px;
         }
 
-        .skills li {
-            background: rgba(52, 152, 219, 0.7);
-            padding: 10px;
-            border-radius: 5px;
-            transition: transform 0.3s;
+        .skill-group li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .skills li:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        .skill-group li img {
+            width: 22px;
+            height: 22px;
+            padding: 4px;
+            border-radius: 6px;
+            background: #ecf0f1;
         }
 
         /* Projects Section */
+        .featured {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            align-items: center;
+            gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto 40px;
+            padding: 25px;
+            background-color: rgba(44, 62, 80, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+
+        .featured video {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .featured .label {
+            margin: 0;
+            color: #f1c40f;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .featured h3 {
+            margin: 8px 0 4px;
+            font-size: 1.8rem;
+        }
+
+        .featured .tags {
+            margin: 0 0 15px;
+            opacity: 0.85;
+        }
+
+        .featured p {
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            background: #3498db;
+            color: #fff;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover, .btn:focus-visible {
+            background: #2980b9;
+        }
+
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .filters button {
+            padding: 8px 18px;
+            border: 2px solid #ecf0f1;
+            border-radius: 20px;
+            background: transparent;
+            color: #ecf0f1;
+            font: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filters button:hover {
+            background: rgba(236, 240, 241, 0.15);
+        }
+
+        .filters button[aria-pressed="true"] {
+            background: #ecf0f1;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
         .projects {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 20px;
-            margin-bottom: 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .projects.compact {
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
         }
 
         .project-card {
@@ -142,6 +317,10 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
+        .project-card[hidden], .project-group[hidden], .featured[hidden] {
+            display: none;
+        }
+
         .project-card:hover, .project-card:focus-visible {
             transform: scale(1.04);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
@@ -152,15 +331,28 @@
             outline-offset: 2px;
         }
 
-        .project-card img {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            object-fit: cover;
+        .project-card .thumb {
+            position: relative;
             display: block;
+            aspect-ratio: 16 / 9;
             background: #2c3e50;
         }
 
-        .project-card span {
+        .project-card .thumb img,
+        .project-card .thumb video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .project-card .thumb video[hidden] {
+            display: none;
+        }
+
+        .project-card .card-text {
             display: block;
             padding: 10px 12px;
             font-weight: 700;
@@ -235,12 +427,20 @@
             padding: 20px 0;
         }
 
+        footer .legal {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 16px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
         .intro img {
+            flex-shrink: 0;
             border-radius: 50%;
             width: 250px;
             height: 250px;
             object-fit: cover;
-            margin-bottom: 20px;
             border: 5px solid #3498db;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
@@ -248,33 +448,69 @@
         /* Responsive styles */
         @media (max-width: 768px) {
             .top-bar h1 {
-                font-size: 2rem;
+                font-size: 1.5rem;
+            }
+            nav {
+                order: 3;
+                width: 100%;
+                text-align: center;
             }
             nav a, .social a {
                 font-size: 1rem;
             }
+            section {
+                scroll-margin-top: 60px;
+            }
+            .featured {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            .intro {
+                flex-direction: column;
+                gap: 20px;
+                padding: 25px;
+                text-align: center;
+            }
             .intro img {
-                width: 150px;
-                height: 150px;
+                width: 180px;
+                height: 180px;
             }
         }
 
         @media (max-width: 480px) {
-            section {
-                padding: 10px;
-            }
             .top-bar h1 {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
             }
             nav a {
                 font-size: 0.9rem;
-                margin: 0 10px;
+                margin: 0 8px;
             }
             .social a {
                 margin: 0 15px 0 0;
             }
-            .skills, .projects, .contact {
-                margin-bottom: 30px;
+            section {
+                padding: 25px 16px;
+            }
+            .skill-groups {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .skill-group {
+                padding: 15px;
+            }
+            .projects, .projects.compact {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .project-card .card-text {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
             }
         }
 
@@ -343,71 +579,122 @@
 <body>
     <!-- Header Section -->
     <header>
-        <!-- Top Bar with name and social links -->
         <div class="top-bar">
-            <h1>Ian Conradie</h1>
+            <h1><a href="#about">Ian Conradie</a></h1>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
             <div class="social">
                 <a href="https://www.linkedin.com/in/ian-conradie-823059249" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="https://github.com/Ian3075" target="_blank" rel="noopener">GitHub</a>
             </div>
         </div>
-
-        <!-- Navigation Bar (tabs) below -->
-        <nav>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-        </nav>
     </header>
 
     <main>
         <!-- Introduction Section -->
         <section id="about">
             <div class="intro">
-                <img src="profile.webp" alt="Profile Picture of Ian Conradie" width="250" height="250">
-                <h2>About Me</h2>
-                <p>Hello, I’m Ian Conradie! <br><br>I am a Games Developer with 2 years of professional industry experience and a degree in Games Development. Specialising in 3D and VR game design and development, I bring hands-on skills in game modelling, design, and interactive experiences. I combine creativity, technical expertise, and a drive for innovation to build engaging games. With a clear path towards becoming a Senior Game Developer, I continue to grow my skills in 3D and VR development and take on new challenges in the industry. <br><br>Welcome to my portfolio!</p>
+                <img src="profile.webp" alt="Photo of Ian Conradie" width="250" height="250">
+                <div class="intro-text">
+                    <h2>Hello, I’m Ian Conradie</h2>
+                    <p class="role">Games Developer</p>
+                    <p>I am a Games Developer with 2 years of professional industry experience and a degree in Games Development. Specialising in 3D and VR game design and development, I bring hands-on skills in game modelling, design, and interactive experiences. I combine creativity, technical expertise, and a drive for innovation to build engaging games. With a clear path towards becoming a Senior Game Developer, I continue to grow my skills in 3D and VR development and take on new challenges in the industry.</p>
+                    <p>Welcome to my portfolio!</p>
+                </div>
             </div>
         </section>
 
         <!-- Skills Section -->
         <section id="skills">
-            <h2>Skills</h2>
-            <div class="skills">
-                <ul>
-                    <li>HTML, CSS, JavaScript, PHP</li>
-                    <li>C#, Java, Python</li>
-                    <li>.NET Framework, .NET Core, SQL</li>
-                    <li>Unity, Blender</li>
-                    <li>Godot, GDScript</li>
-                    <li>Flutter, Dart</li>
-                    <li>UI/UX Design with Figma</li>
-                </ul>
+            <h2 class="section-title">Skills</h2>
+            <div class="skill-groups">
+                <div class="skill-group">
+                    <h3>Game Engines</h3>
+                    <ul>
+                        <li><img src="icons/unity.svg" alt="" width="22" height="22">Unity</li>
+                        <li><img src="icons/godot.svg" alt="" width="22" height="22">Godot</li>
+                    </ul>
+                </div>
+                <div class="skill-group">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li><img src="icons/csharp.svg" alt="" width="22" height="22">C#</li>
+                        <li><img src="icons/godot.svg" alt="" width="22" height="22">GDScript</li>
+                        <li><img src="icons/python.svg" alt="" width="22" height="22">Python</li>
+                        <li><img src="icons/java.svg" alt="" width="22" height="22">Java</li>
+                    </ul>
+                </div>
+                <div class="skill-group">
+                    <h3>3D &amp; Design</h3>
+                    <ul>
+                        <li><img src="icons/blender.svg" alt="" width="22" height="22">Blender</li>
+                        <li><img src="icons/figma.svg" alt="" width="22" height="22">Figma (UI/UX)</li>
+                    </ul>
+                </div>
+                <div class="skill-group">
+                    <h3>Other</h3>
+                    <ul>
+                        <li><img src="icons/html5.svg" alt="" width="22" height="22">HTML, CSS, JavaScript</li>
+                        <li><img src="icons/php.svg" alt="" width="22" height="22">PHP</li>
+                        <li><img src="icons/dotnetcore.svg" alt="" width="22" height="22">.NET, .NET Core</li>
+                        <li><img src="icons/mysql.svg" alt="" width="22" height="22">SQL</li>
+                        <li><img src="icons/flutter.svg" alt="" width="22" height="22">Flutter, Dart</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
         <!-- Projects Section -->
         <section id="projects">
-            <h2>Projects</h2>
-            <div class="projects">
-                <button class="project-card" data-modal="modal12"><img src="thumbs/elementalWizard.webp" alt="" loading="lazy"><span>Elemental Wizard<small>Godot · 2D isometric</small></span></button>
-                <button class="project-card" data-modal="modal1"><img src="thumbs/fruitCatcherGame.webp" alt="" loading="lazy"><span>Fruit Catcher<small>Unity · 3D</small></span></button>
-                <button class="project-card" data-modal="modal2"><img src="thumbs/carShooterGame.webp" alt="" loading="lazy"><span>Car Shooter<small>Unity · 2D</small></span></button>
-                <button class="project-card" data-modal="modal3"><img src="thumbs/adventureTimeMenu.webp" alt="" loading="lazy"><span>Adventure Time<small>Unity · 2D platformer</small></span></button>
-                <button class="project-card" data-modal="modal4"><img src="thumbs/obsidianMirage.webp" alt="" loading="lazy"><span>Obsidian Mirage<small>Unity · 3D · Group project</small></span></button>
-                <button class="project-card" data-modal="modal5"><img src="https://img.youtube.com/vi/hEBXsjY-IWs/hqdefault.jpg" alt="" loading="lazy"><span>Tech Expo<small>Unity · Blender · Group project</small></span></button>
-                <button class="project-card" data-modal="modal6"><img src="thumbs/terrainRain2.webp" alt="" loading="lazy"><span>Terrain with Rain<small>Unity · 3D</small></span></button>
-                <button class="project-card" data-modal="modal7"><img src="thumbs/obstacleCourse2.webp" alt="" loading="lazy"><span>Obstacle Course<small>Unity · 3D</small></span></button>
-                <button class="project-card" data-modal="modal8"><img src="thumbs/gamingPC.webp" alt="" loading="lazy"><span>Gaming PC<small>Blender</small></span></button>
-                <button class="project-card" data-modal="modal9"><img src="thumbs/ramenShop.webp" alt="" loading="lazy"><span>Ramen Shop<small>Blender · Low-poly</small></span></button>
-                <button class="project-card" data-modal="modal11"><img src="thumbs/adventureCollectable.webp" alt="" loading="lazy"><span>Adventure Collectable<small>Unity · 3D</small></span></button>
+            <h2 class="section-title">Projects</h2>
+
+            <!-- Featured project -->
+            <article class="featured" data-category="games">
+                <video src="previews/elementalWizard.mp4" poster="thumbs/elementalWizard.webp" autoplay muted loop playsinline aria-label="Elemental Wizard gameplay preview"></video>
+                <div>
+                    <p class="label">Latest project</p>
+                    <h3>Elemental Wizard</h3>
+                    <p class="tags">Godot · GDScript · 2D isometric</p>
+                    <p>A fast-paced 1v1 spell-shooter where six elemental spells react to each other: combine air and fire to trigger Combustion. Play a friend locally or take on a CPU opponent.</p>
+                    <button class="btn" data-modal="modal12">Watch the demo</button>
+                </div>
+            </article>
+
+            <div class="filters" role="group" aria-label="Filter projects">
+                <button data-filter="all" aria-pressed="true">All</button>
+                <button data-filter="games" aria-pressed="false">Games</button>
+                <button data-filter="art" aria-pressed="false">3D Art</button>
+            </div>
+
+            <div class="project-group">
+                <div class="projects">
+                    <button class="project-card" data-modal="modal4" data-category="games"><span class="thumb"><img src="thumbs/obsidianMirage.webp" alt="" loading="lazy"></span><span class="card-text">Obsidian Mirage<small>Unity · 3D · Group project</small></span></button>
+                    <button class="project-card" data-modal="modal11" data-category="games" data-preview="previews/adventureCollectable.mp4"><span class="thumb"><img src="thumbs/adventureCollectable.webp" alt="" loading="lazy"></span><span class="card-text">Adventure Collectable<small>Unity · 3D</small></span></button>
+                    <button class="project-card" data-modal="modal2" data-category="games" data-preview="previews/carShooterGame.mp4"><span class="thumb"><img src="thumbs/carShooterGame.webp" alt="" loading="lazy"></span><span class="card-text">Car Shooter<small>Unity · 2D</small></span></button>
+                    <button class="project-card" data-modal="modal3" data-category="games"><span class="thumb"><img src="thumbs/adventureTimeMenu.webp" alt="" loading="lazy"></span><span class="card-text">Adventure Time<small>Unity · 2D platformer</small></span></button>
+                    <button class="project-card" data-modal="modal7" data-category="games" data-preview="previews/obstacleCourse2.mp4"><span class="thumb"><img src="thumbs/obstacleCourse2.webp" alt="" loading="lazy"></span><span class="card-text">Obstacle Course<small>Unity · 3D</small></span></button>
+                    <button class="project-card" data-modal="modal1" data-category="games" data-preview="previews/fruitCatcherGame.mp4"><span class="thumb"><img src="thumbs/fruitCatcherGame.webp" alt="" loading="lazy"></span><span class="card-text">Fruit Catcher<small>Unity · 3D</small></span></button>
+                    <button class="project-card" data-modal="modal5" data-category="art"><span class="thumb"><img src="https://img.youtube.com/vi/hEBXsjY-IWs/hqdefault.jpg" alt="" loading="lazy"></span><span class="card-text">Tech Expo<small>Unity · Blender · Group project</small></span></button>
+                    <button class="project-card" data-modal="modal9" data-category="art"><span class="thumb"><img src="thumbs/ramenShop.webp" alt="" loading="lazy"></span><span class="card-text">Ramen Shop<small>Blender · Low-poly</small></span></button>
+                </div>
+            </div>
+
+            <div class="project-group">
+                <h3 class="sub-title">Exercises &amp; Studies</h3>
+                <div class="projects compact">
+                    <button class="project-card" data-modal="modal6" data-category="art" data-preview="previews/terrainRain2.mp4"><span class="thumb"><img src="thumbs/terrainRain2.webp" alt="" loading="lazy"></span><span class="card-text">Terrain with Rain<small>Unity · Environment</small></span></button>
+                    <button class="project-card" data-modal="modal8" data-category="art" data-preview="previews/gamingPC.mp4"><span class="thumb"><img src="thumbs/gamingPC.webp" alt="" loading="lazy"></span><span class="card-text">Gaming PC<small>Blender</small></span></button>
+                </div>
             </div>
         </section>
 
         <!-- Contact Section -->
         <section id="contact">
-            <h2>Contact Me</h2>
+            <h2 class="section-title">Contact Me</h2>
             <div class="contact">
                 <!-- Formspree form: messages are forwarded to Ian's email -->
                 <form id="contact-form" action="https://formspree.io/f/xqpebzne" method="POST">
@@ -536,15 +823,16 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; <span id="year">2026</span> Ian Conradie. All rights reserved.</p>
+        <p>&copy; 2024&ndash;<span id="year">2026</span> Ian Conradie. All rights reserved.</p>
+        <p class="legal">All projects, game concepts, designs, code, images and videos on this site are the intellectual property of Ian Conradie and may not be copied, reused or redistributed without permission. Group projects are shared with their respective team members; third-party assets belong to their owners.</p>
     </footer>
 
     <!-- JavaScript for Dialogs and Form Submission -->
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Open a project's dialog from its card
-        document.querySelectorAll('.project-card').forEach(function(card) {
+        // Open a project's dialog from its card (or the featured project's button)
+        document.querySelectorAll('[data-modal]').forEach(function(card) {
             card.addEventListener('click', function() {
                 var dialog = document.getElementById(card.dataset.modal);
                 // Load the YouTube embed only when its dialog is opened
@@ -576,6 +864,59 @@
                 dialog.querySelectorAll('iframe[data-src]').forEach(function(frame) { frame.removeAttribute('src'); });
             });
         });
+
+        // Project filters
+        var filterButtons = document.querySelectorAll('.filters button');
+        filterButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var filter = button.dataset.filter;
+                filterButtons.forEach(function(b) {
+                    b.setAttribute('aria-pressed', b === button ? 'true' : 'false');
+                });
+                document.querySelectorAll('.project-card, .featured').forEach(function(item) {
+                    item.hidden = filter !== 'all' && item.dataset.category !== filter;
+                });
+                // Hide a group (and its heading) when none of its projects match
+                document.querySelectorAll('.project-group').forEach(function(group) {
+                    group.hidden = !group.querySelector('.project-card:not([hidden])');
+                });
+            });
+        });
+
+        // Short muted preview clip on hover (mouse users only, respects reduced motion)
+        var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (canHover && !reducedMotion) {
+            document.querySelectorAll('.project-card[data-preview]').forEach(function(card) {
+                var video;
+                card.addEventListener('mouseenter', function() {
+                    if (!video) {
+                        video = document.createElement('video');
+                        video.src = card.dataset.preview;
+                        video.muted = true;
+                        video.loop = true;
+                        video.playsInline = true;
+                        card.querySelector('.thumb').appendChild(video);
+                    }
+                    video.hidden = false;
+                    video.play().catch(function() {});
+                });
+                card.addEventListener('mouseleave', function() {
+                    if (video) {
+                        video.pause();
+                        video.hidden = true;
+                    }
+                });
+            });
+        }
+
+        // Don't autoplay the featured clip for visitors who prefer reduced motion
+        if (reducedMotion) {
+            var featuredVideo = document.querySelector('.featured video');
+            featuredVideo.removeAttribute('autoplay');
+            featuredVideo.pause();
+            featuredVideo.controls = true;
+        }
 
         // Send the contact form through Formspree
         var form = document.getElementById('contact-form');
