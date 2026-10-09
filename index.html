@@ -14,6 +14,7 @@
     <meta property="og:image" content="https://ian3075.github.io/og-image.jpg">
     <meta name="twitter:card" content="summary">
 
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -366,7 +367,7 @@
             <div class="intro">
                 <img src="profile.webp" alt="Profile Picture of Ian Conradie" width="250" height="250">
                 <h2>About Me</h2>
-                <p>Hello, I’m Ian Conradie! <br><br>I am a Games Developer with 2 years of professional industry experience and a degree in Games Development. Specializing in 3D and VR game design and development, I bring hands-on skills in game modeling, design, and interactive experiences. I combine creativity, technical expertise, and a drive for innovation to build engaging games. With a clear path towards becoming a Senior Game Developer, I continue to grow my skills in 3D and VR development and take on new challenges in the industry. <br><br>Welcome to my portfolio!</p>
+                <p>Hello, I’m Ian Conradie! <br><br>I am a Games Developer with 2 years of professional industry experience and a degree in Games Development. Specialising in 3D and VR game design and development, I bring hands-on skills in game modelling, design, and interactive experiences. I combine creativity, technical expertise, and a drive for innovation to build engaging games. With a clear path towards becoming a Senior Game Developer, I continue to grow my skills in 3D and VR development and take on new challenges in the industry. <br><br>Welcome to my portfolio!</p>
             </div>
         </section>
 
@@ -397,7 +398,7 @@
                 <button class="project-card" data-modal="modal6"><img src="thumbs/terrainRain2.webp" alt="" loading="lazy"><span>Terrain with Rain<small>Unity · 3D</small></span></button>
                 <button class="project-card" data-modal="modal7"><img src="thumbs/obstacleCourse2.webp" alt="" loading="lazy"><span>Obstacle Course<small>Unity · 3D</small></span></button>
                 <button class="project-card" data-modal="modal8"><img src="thumbs/gamingPC.webp" alt="" loading="lazy"><span>Gaming PC<small>Blender</small></span></button>
-                <button class="project-card" data-modal="modal9"><img src="thumbs/ramenShop.webp" alt="" loading="lazy"><span>Ramen Shop<small>Blender · Low poly</small></span></button>
+                <button class="project-card" data-modal="modal9"><img src="thumbs/ramenShop.webp" alt="" loading="lazy"><span>Ramen Shop<small>Blender · Low-poly</small></span></button>
                 <button class="project-card" data-modal="modal10"><img src="thumbs/robot.webp" alt="" loading="lazy"><span>Robot<small>Blender</small></span></button>
                 <button class="project-card" data-modal="modal11"><img src="thumbs/adventureCollectable.webp" alt="" loading="lazy"><span>Adventure Collectable<small>Unity · 3D</small></span></button>
             </div>
@@ -409,9 +410,9 @@
             <div class="contact">
                 <!-- Formspree: replace YOUR_FORM_ID with the ID from https://formspree.io (e.g. "xyzabcde") -->
                 <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                    <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
-                    <input type="email" name="email" placeholder="Your Email" autocomplete="email" required>
-                    <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <input type="text" name="name" aria-label="Your name" placeholder="Your Name" autocomplete="name" required>
+                    <input type="email" name="email" aria-label="Your email" placeholder="Your Email" autocomplete="email" required>
+                    <textarea name="message" aria-label="Your message" placeholder="Your Message" rows="5" required></textarea>
                     <input type="hidden" name="_subject" value="New message from portfolio contact form">
                     <button type="submit">Send</button>
                 </form>
@@ -435,7 +436,7 @@
     <dialog id="modal2" class="modal" aria-labelledby="modal2-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal2-title">Car Shooter</h3>
-        <p>The Car Shooting Game is a thrilling 2D top-down arcade racer made in Unity that combines fast-paced racing with intense vehicular combat. Players control customizable cars, racing against AI opponents while utilizing weapons like missiles and lasers to eliminate rivals. The game features various vibrant tracks, retro pixel-art graphics, and engaging gameplay mechanics, including drifting and braking, to enhance the racing experience.</p>
+        <p>Car Shooter is a thrilling 2D top-down arcade racer made in Unity that combines fast-paced racing with intense vehicular combat. Players control customisable cars, racing against AI opponents and using weapons like missiles and lasers to eliminate rivals. The game features various vibrant tracks, retro pixel-art graphics, and engaging gameplay mechanics, including drifting and braking, to enhance the racing experience.</p>
         <div class="video-container">
             <video controls preload="none" poster="thumbs/carShooterGame.webp">
                 <source src="carShooterGame.mp4" type="video/mp4">
@@ -455,7 +456,7 @@
     <dialog id="modal4" class="modal" aria-labelledby="modal4-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal4-title">Obsidian Mirage</h3>
-        <p>Obsidian Mirage is a unique and challenging 3D platformer game made in Unity in a group. Players take on the role of Y2, a robot on a singular mission: to move forward and collect coins for their people. The game's objective is simple yet deceptively difficult - navigate through intricate and surreal landscapes filled with obsidian platforms, obstacles, and collectible coins.</p>
+        <p>Obsidian Mirage is a unique and challenging 3D platformer game made in Unity as a group project. Players take on the role of Y2, a robot on a singular mission: to move forward and collect coins for their people. The game's objective is simple yet deceptively difficult: navigate through intricate and surreal landscapes filled with obsidian platforms, obstacles, and collectible coins.</p>
         <img src="obsidianMirage.webp" alt="Screenshot of Obsidian Mirage" loading="lazy">
     </dialog>
 
@@ -472,7 +473,7 @@
     <dialog id="modal6" class="modal" aria-labelledby="modal6-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal6-title">Terrain with Rain</h3>
-        <p>Terrain with Rain is a custom sculpted terrain made in Unity. In this project the terrain has numerous textures and objects such as trees and rocks, and animated rainfall.</p>
+        <p>Terrain with Rain is a custom-sculpted terrain made in Unity, with numerous textures, objects such as trees and rocks, and animated rainfall.</p>
         <div class="video-container">
             <video controls preload="none" poster="thumbs/terrainRain2.webp">
                 <source src="terrainRain2.mp4" type="video/mp4">
@@ -483,7 +484,7 @@
     <dialog id="modal7" class="modal" aria-labelledby="modal7-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal7-title">Obstacle Course</h3>
-        <p>Obstacle Course is a 3D obstacle course game made in Unity. The game's basic but difficult goal is to make your way past a series of perilous obstacles and reach the winning level. It is set in a colourful and imaginative obstacle course. Players can only use three lives at a time, and when they are all used up, the game is over for them.</p>
+        <p>Obstacle Course is a 3D obstacle course game made in Unity. Set in a colourful and imaginative course, the goal is simple but difficult: make your way past a series of perilous obstacles and reach the final level. Players have three lives, and when they are all used up, the game is over.</p>
         <div class="video-container">
             <video controls preload="none" poster="thumbs/obstacleCourse2.webp">
                 <source src="obstacleCourse2.mp4" type="video/mp4">
@@ -494,7 +495,7 @@
     <dialog id="modal8" class="modal" aria-labelledby="modal8-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal8-title">Gaming PC</h3>
-        <p>Gaming PC was modeled in Blender. In this project the computer has spinning RGB cooling fans and a sphere on the desktop that reacts based on audio.</p>
+        <p>Gaming PC was modelled in Blender. The computer has spinning RGB cooling fans and a sphere on the desktop that reacts to audio.</p>
         <div class="video-container">
             <video controls preload="none" poster="thumbs/gamingPC.webp">
                 <source src="gamingPC.mp4" type="video/mp4">
@@ -505,7 +506,7 @@
     <dialog id="modal9" class="modal" aria-labelledby="modal9-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal9-title">Ramen Shop</h3>
-        <p>This Ramen Shop was modeled in Blender. This is a low poly depiction of a ramen shop featuring a ramen bowl on the roof, made with various textures and objects.</p>
+        <p>Ramen Shop was modelled in Blender. It is a low-poly depiction of a ramen shop with a giant ramen bowl on the roof, made with various textures and objects.</p>
         <img src="ramenShop.webp" alt="Screenshot of Ramen Shop" loading="lazy">
         <img src="ramenShopBowl.webp" alt="Screenshot of Ramen Bowl" loading="lazy">
     </dialog>
@@ -513,14 +514,14 @@
     <dialog id="modal10" class="modal" aria-labelledby="modal10-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal10-title">Robot</h3>
-        <p>This Robot was modeled in Blender. This cute robot was mainly modeled using cylinder objects and includes a glossy metallic surface.</p>
+        <p>Robot was modelled in Blender. This cute robot was built mainly from cylinder objects and has a glossy metallic surface.</p>
         <img src="robot.webp" alt="Screenshot of Robot" loading="lazy">
     </dialog>
 
     <dialog id="modal11" class="modal" aria-labelledby="modal11-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal11-title">Adventure Collectable</h3>
-        <p>Adventure Collectable is a game made in Unity. In this game the player navigates through a custom made terrain that includes various textures, objects such as trees and rocks, and various particle effects such as a waterfall, falling leaves and pick up item particles. Sound effects used include item pick up sounds, obstacle collisions and a Japanese themed ambience music.</p>
+        <p>Adventure Collectable is a game made in Unity. The player explores a custom-made terrain with various textures, objects such as trees and rocks, and particle effects such as a waterfall, falling leaves and item pick-up effects. Audio includes item pick-up sounds, obstacle collision sounds and Japanese-themed ambient music.</p>
         <div class="video-container">
             <video controls preload="none" poster="thumbs/adventureCollectable.webp">
                 <source src="adventureCollectable.mp4" type="video/mp4">
