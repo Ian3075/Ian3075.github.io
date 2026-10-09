@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://ian3075.github.io/">
     <meta property="og:title" content="Ian Conradie | Portfolio">
     <meta property="og:description" content="Games and Systems Developer specialising in 3D and VR games, plus software, mobile and full-stack development.">
-    <meta property="og:image" content="https://ian3075.github.io/og-ian-conradie.jpg">
+    <meta property="og:image" content="https://ian3075.github.io/og-ian.jpg">
     <meta name="twitter:card" content="summary">
 
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -121,22 +121,49 @@
             opacity: 0.9;
         }
 
+        /* About: banner photo on the left, fading into the text on the right */
         .intro {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            max-width: 1000px;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 520px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px;
-            background-color: rgba(44, 62, 80, 0.9);
+            overflow: hidden;
+            background-color: #2e4a55;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             text-align: left;
         }
 
+        .intro img {
+            display: block;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: left top;
+        }
+
+        .intro::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 38%, rgba(30, 44, 56, 0.88) 58%, rgba(30, 44, 56, 0.96));
+        }
+
+        .intro-text {
+            grid-column: 2;
+            position: relative;
+            z-index: 1;
+            align-self: center;
+            padding: 50px 50px 50px 10px;
+        }
+
         .intro-text h2 {
             margin-top: 0;
-            font-size: 2rem;
+            font-size: 2.4rem;
         }
 
         .intro-text .role {
@@ -428,15 +455,6 @@
         }
 
 
-        .intro img {
-            flex-shrink: 0;
-            border-radius: 50%;
-            width: 250px;
-            height: 250px;
-            object-fit: cover;
-            border: 5px solid #3498db;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        }
 
         /* Responsive styles */
         @media (max-width: 768px) {
@@ -459,14 +477,23 @@
                 padding: 20px;
             }
             .intro {
-                flex-direction: column;
-                gap: 20px;
-                padding: 25px;
+                display: block;
+                min-height: 0;
                 text-align: center;
             }
             .intro img {
-                width: 180px;
-                height: 180px;
+                position: static;
+                height: 300px;
+                object-position: 15% 20%;
+            }
+            .intro::after {
+                inset: 200px 0 auto;
+                height: 100px;
+                background: linear-gradient(transparent, #1e2c38);
+            }
+            .intro-text {
+                padding: 20px 20px 25px;
+                background: #1e2c38;
             }
         }
 
@@ -591,7 +618,7 @@
         <!-- Introduction Section -->
         <section id="about">
             <div class="intro">
-                <img src="ian-conradie.webp" alt="Photo of Ian Conradie" width="250" height="250">
+                <img src="ian-banner.webp" alt="Photo of Ian Conradie" width="1600" height="1067">
                 <div class="intro-text">
                     <h2>Hello, I’m Ian Conradie</h2>
                     <p class="role">Games Developer · Systems Developer</p>
