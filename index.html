@@ -330,6 +330,36 @@
             margin: 0 auto;
         }
 
+        /* Mobile apps: a tall card showing the screen recording uncropped in a phone frame */
+        .projects {
+            grid-auto-flow: dense;
+        }
+
+        .project-card.phone {
+            grid-row: span 2;
+            min-height: 420px;
+        }
+
+        .project-card.phone .thumb {
+            flex: 1;
+            aspect-ratio: auto;
+            background: radial-gradient(circle at 50% 40%, #1c2027, #0a0b0d 75%);
+        }
+
+        .project-card.phone .screen {
+            position: absolute;
+            top: 14px;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            aspect-ratio: 9 / 20;
+            border: 3px solid #2a2e35;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
         .projects.compact {
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
@@ -532,6 +562,9 @@
                 padding: 8px 10px;
                 font-size: 0.9rem;
             }
+            .project-card.phone {
+                min-height: 340px;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -593,6 +626,18 @@
         .video-container video {
             width: 100%;
             height: auto;
+        }
+
+        /* Phone screen recordings: keep them a sensible height */
+        .video-container video.portrait {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            max-height: 75vh;
+            margin: 0 auto;
+            border: 3px solid #2a2e35;
+            border-radius: 18px;
+            background: #000;
         }
 
         .video-container iframe {
@@ -764,7 +809,7 @@
 
             <div class="project-group">
                 <div class="projects">
-                    <button class="project-card" data-modal="modal13" data-category="apps"><span class="thumb"><img src="thumbs/phasmoCompanion.webp" alt="" loading="lazy"></span><span class="card-text">PhasmoCompanion<small>Android · Kotlin · AI</small></span></button>
+                    <button class="project-card phone" data-modal="modal13" data-category="apps" data-preview="previews/phasmoCompanion.mp4"><span class="thumb"><span class="screen"><img src="thumbs/phasmoCompanionCard.webp" alt="" loading="lazy"></span></span><span class="card-text">PhasmoCompanion<small>Android · Kotlin · AI</small></span></button>
                     <button class="project-card" data-modal="modal4" data-category="games"><span class="thumb"><img src="thumbs/obsidianMirage.webp" alt="" loading="lazy"></span><span class="card-text">Obsidian Mirage<small>Unity · 3D · Group project</small></span></button>
                     <button class="project-card" data-modal="modal11" data-category="games" data-preview="previews/adventureCollectable.mp4"><span class="thumb"><img src="thumbs/adventureCollectable.webp" alt="" loading="lazy"></span><span class="card-text">Adventure Collectable<small>Unity · 3D</small></span></button>
                     <button class="project-card" data-modal="modal2" data-category="games" data-preview="previews/carShooterGame.mp4"><span class="thumb"><img src="thumbs/carShooterGame.webp" alt="" loading="lazy"></span><span class="card-text">Car Shooter<small>Unity · 2D</small></span></button>
@@ -820,8 +865,9 @@
         <p>PhasmoCompanion is an Android app that works as an AI co-investigator for the ghost-hunting game Phasmophobia. Players tell it what they find the way they'd tell a teammate, such as "the spirit box answered and it's freezing in here, no orbs though", and it marks the evidence, logs hunts, tracks sanity and crosses off ghosts that can't match. It then answers in character, saying which ghosts are left and which test to try next.</p>
         <p>Built with Kotlin and Jetpack Compose. The AI runs on Google's open Gemma 4 model and turns casual speech into structured actions on the investigation. A filtering engine handles all ghost types, hidden evidence on Nightmare and Insanity difficulty, the Mimic's fake orbs and hunt-sanity thresholds. It falls back to an offline parser when there's no signal, and the dark "ghost van and case journal" interface keeps the screen on next to your keyboard.</p>
         <div class="video-container">
-            <!-- Demo video goes here; replace this image with a <video> like the other projects -->
-            <img src="thumbs/phasmoCompanion.webp" alt="PhasmoCompanion's co-investigator terminal and evidence journal" loading="lazy">
+            <video class="portrait" controls preload="none" poster="thumbs/phasmoCompanionDemo.webp">
+                <source src="phasmoCompanion.mp4" type="video/mp4">
+            </video>
         </div>
     </dialog>
 
@@ -999,7 +1045,8 @@
                         video.muted = true;
                         video.loop = true;
                         video.playsInline = true;
-                        card.querySelector('.thumb').appendChild(video);
+                        // Phone cards play the clip inside their phone frame
+                        (card.querySelector('.screen') || card.querySelector('.thumb')).appendChild(video);
                     }
                     video.hidden = false;
                     video.play().catch(function() {});
