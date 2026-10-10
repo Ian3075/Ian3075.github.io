@@ -415,6 +415,36 @@
             display: none;
         }
 
+        /* Placeholder thumbnail for projects whose video hasn't been added yet */
+        .project-card .thumb.placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: radial-gradient(circle at 30% 25%, var(--ph-a), var(--ph-b) 75%);
+        }
+
+        .thumb.placeholder .ph-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.85rem;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .thumb.placeholder .ph-note {
+            font-family: 'Silkscreen', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            opacity: 0.75;
+        }
+
+        .modal .coming-soon {
+            font-family: 'Silkscreen', monospace;
+            letter-spacing: 1px;
+            color: #f1c40f;
+        }
+
         .project-card .card-text {
             display: block;
             padding: 10px 12px;
@@ -818,6 +848,9 @@
             <div class="project-group">
                 <div class="projects">
                     <button class="project-card phone" data-modal="modal13" data-category="apps" data-preview="previews/phasmoCompanion.mp4"><span class="thumb"><span class="screen"><img src="thumbs/phasmoCompanionCard.webp" alt="" loading="lazy"></span></span><span class="card-text">PhasmoCompanion<small>Android · Kotlin · AI</small></span></button>
+                    <button class="project-card" data-modal="modal14" data-category="games"><span class="thumb placeholder" style="--ph-a: #0e4a6e; --ph-b: #03121f;"><span class="ph-title">Sub Escape</span><span class="ph-note">Video coming soon</span></span><span class="card-text">Sub Escape<small>Unity · Blender · 3D</small></span></button>
+                    <button class="project-card" data-modal="modal15" data-category="games"><span class="thumb placeholder" style="--ph-a: #3f8f3a; --ph-b: #12301a;"><span class="ph-title">Virtual Garden</span><span class="ph-note">Video coming soon</span></span><span class="card-text">Virtual Garden<small>Unity · 3D · Low-poly</small></span></button>
+                    <button class="project-card" data-modal="modal16" data-category="games"><span class="thumb placeholder" style="--ph-a: #8e2b2b; --ph-b: #2a0b0b;"><span class="ph-title">Ma-Jong</span><span class="ph-note">Video coming soon</span></span><span class="card-text">Ma-Jong<small>Godot · Android &amp; PC</small></span></button>
                     <button class="project-card" data-modal="modal4" data-category="games"><span class="thumb"><img src="thumbs/obsidianMirage.webp" alt="" loading="lazy"></span><span class="card-text">Obsidian Mirage<small>Unity · 3D · Group project</small></span></button>
                     <button class="project-card" data-modal="modal11" data-category="games" data-preview="previews/adventureCollectable.mp4"><span class="thumb"><img src="thumbs/adventureCollectable.webp" alt="" loading="lazy"></span><span class="card-text">Adventure Collectable<small>Unity · 3D</small></span></button>
                     <button class="project-card" data-modal="modal2" data-category="games" data-preview="previews/carShooterGame.mp4"><span class="thumb"><img src="thumbs/carShooterGame.webp" alt="" loading="lazy"></span><span class="card-text">Car Shooter<small>Unity · 2D</small></span></button>
@@ -856,6 +889,27 @@
     </main>
 
     <!-- Dialogs for Project Information -->
+    <dialog id="modal14" class="modal" aria-labelledby="modal14-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal14-title">Sub Escape</h3>
+        <p>Sub Escape is a 3D puzzle game made in Unity, set aboard a submarine I modelled in Blender. You play the sole survivor of a submarine crew, racing to solve puzzles and reach the controls to surface before an unknown creature tears the sub apart. Journals scattered through the submarine tell the story and hold the clues you need to escape.</p>
+        <p class="coming-soon">Gameplay video coming soon.</p>
+    </dialog>
+
+    <dialog id="modal15" class="modal" aria-labelledby="modal15-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal15-title">Virtual Garden</h3>
+        <p>Virtual Garden is a relaxing low-poly farming game made in Unity, where you grow your own vegetables. Every plant needs looking after: bees pollinate your crops for a growth boost, but water too little and plants dry out, and water too much and they drown.</p>
+        <p class="coming-soon">Gameplay video coming soon.</p>
+    </dialog>
+
+    <dialog id="modal16" class="modal" aria-labelledby="modal16-title">
+        <button class="close" aria-label="Close">&times;</button>
+        <h3 id="modal16-title">Ma-Jong</h3>
+        <p>Ma-Jong is a take on the classic mahjong solitaire tile-matching game, made in Godot for Android and PC: match pairs of free tiles to clear the board.</p>
+        <p class="coming-soon">Gameplay video coming soon.</p>
+    </dialog>
+
     <dialog id="modal12" class="modal" aria-labelledby="modal12-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal12-title">Elemental Wizard</h3>
