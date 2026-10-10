@@ -618,6 +618,14 @@
             line-height: 1.6;
         }
 
+        .modal .video-label {
+            margin: 30px 0 0;
+            font-family: 'Silkscreen', monospace;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #2ecc71;
+        }
+
         /* Video and iframe responsiveness */
         .video-container {
             margin-top: 20px;
@@ -790,12 +798,12 @@
 
             <!-- Featured project -->
             <article class="featured" data-category="games">
-                <video src="previews/elementalWizard.mp4" poster="thumbs/elementalWizard.webp" autoplay muted loop playsinline aria-label="Elemental Wizard gameplay preview"></video>
+                <video src="previews/elementalWizardWindows.mp4" poster="thumbs/elementalWizardWindows.webp" autoplay muted loop playsinline aria-label="Elemental Wizard gameplay preview"></video>
                 <div>
                     <p class="label">Latest project</p>
                     <h3>Elemental Wizard</h3>
-                    <p class="tags">Godot · GDScript · 2D isometric</p>
-                    <p>A fast-paced 1v1 spell-shooter where six elemental spells react to each other: combine air and fire to trigger Combustion. Play a friend locally or take on a CPU opponent.</p>
+                    <p class="tags">Godot · GDScript · 2D isometric · Windows &amp; Android</p>
+                    <p>A fast-paced 1v1 spell-shooter where six elemental spells react to each other: combine air and fire to trigger Combustion. Play a friend locally or take on a CPU opponent, on Windows or Android.</p>
                     <button class="btn" data-modal="modal12">Watch the demo</button>
                 </div>
             </article>
@@ -851,10 +859,18 @@
     <dialog id="modal12" class="modal" aria-labelledby="modal12-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal12-title">Elemental Wizard</h3>
-        <p>Elemental Wizard is a fast-paced 1v1 spell-shooter made in Godot, with 2D pixel-art graphics and an isometric view. Each player wields six spells, one for each element: water, fire, earth, air, electricity and nature. The combat system is inspired by real science: elements react with each other to apply debuffs, so combining air and fire, for example, triggers a Combustion debuff. Play against a friend locally or take on a CPU opponent with adjustable difficulty. Mix your spells, out-think your opponent, and be the last wizard standing.</p>
+        <p>Elemental Wizard is a fast-paced 1v1 spell-shooter made in Godot, with 2D pixel-art graphics and an isometric view. Each player wields six spells, one for each element: water, fire, earth, air, electricity and nature. The combat system is inspired by real science: elements react with each other to apply debuffs, so combining air and fire, for example, triggers a Combustion debuff. Play against a friend locally or take on a CPU opponent with adjustable difficulty, on Windows or on Android with touch controls. Mix your spells, out-think your opponent, and be the last wizard standing.</p>
+        <h4 class="video-label">On Windows</h4>
         <div class="video-container">
-            <video controls preload="none" poster="thumbs/elementalWizard.webp">
-                <source src="elementalWizard.mp4" type="video/mp4">
+            <video controls preload="none" poster="thumbs/elementalWizardWindows.webp">
+                <source src="elementalWizardWindows.mp4" type="video/mp4">
+            </video>
+        </div>
+        <h4 class="video-label">On Android</h4>
+        <p>A virtual joystick for movement and a touch button for each of the six spells.</p>
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/elementalWizardAndroid.webp">
+                <source src="elementalWizardAndroid.mp4" type="video/mp4">
             </video>
         </div>
     </dialog>
