@@ -233,13 +233,32 @@
         }
 
         /* Projects Section */
-        .featured {
+        /* Latest projects: featured cards side by side */
+        .featured-row {
             display: grid;
-            grid-template-columns: 3fr 2fr;
-            align-items: center;
-            gap: 30px;
+            grid-template-columns: 1fr 1fr;
+            align-items: start;
+            gap: 25px;
             max-width: 1100px;
             margin: 0 auto 40px;
+        }
+
+        .featured-heading {
+            margin: 0 0 15px;
+            color: #e67e22;
+            font-family: 'Silkscreen', monospace;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .featured {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            height: 100%;
+            box-sizing: border-box;
             padding: 25px;
             background-color: rgba(44, 62, 80, 0.9);
             border-radius: 10px;
@@ -247,10 +266,38 @@
             text-align: left;
         }
 
-        .featured video {
+        .featured video, .featured .media-placeholder {
             width: 100%;
+            aspect-ratio: 16 / 9;
             border-radius: 8px;
             display: block;
+        }
+
+        .featured .media-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: radial-gradient(circle at 30% 25%, var(--ph-a), var(--ph-b) 75%);
+        }
+
+        .featured .media-placeholder .ph-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.1rem;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .featured .media-placeholder .ph-note {
+            font-family: 'Silkscreen', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            opacity: 0.75;
+        }
+
+        .featured .btn {
+            align-self: flex-start;
         }
 
         .featured .label {
@@ -380,7 +427,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .project-card[hidden], .project-group[hidden], .featured[hidden] {
+        .project-card[hidden], .project-group[hidden], .featured[hidden], .featured-group[hidden] {
             display: none;
         }
 
@@ -538,8 +585,10 @@
             section {
                 scroll-margin-top: 60px;
             }
-            .featured {
+            .featured-row {
                 grid-template-columns: 1fr;
+            }
+            .featured {
                 padding: 20px;
             }
             .intro {
@@ -826,17 +875,30 @@
         <section id="projects">
             <h2 class="section-title">Projects</h2>
 
-            <!-- Featured project -->
-            <article class="featured" data-category="games">
-                <video src="previews/elementalWizardWindows.mp4" poster="thumbs/elementalWizardWindows.webp" autoplay muted loop playsinline aria-label="Elemental Wizard gameplay preview"></video>
-                <div>
-                    <p class="label">Latest project</p>
-                    <h3>Elemental Wizard</h3>
-                    <p class="tags">Godot · GDScript · 2D isometric · Windows &amp; Android</p>
-                    <p>A fast-paced 1v1 spell-shooter where six elemental spells react to each other: combine air and fire to trigger Combustion. Play a friend locally or take on a CPU opponent, on Windows or Android.</p>
-                    <button class="btn" data-modal="modal12">Watch the demo</button>
-                </div>
-            </article>
+            <!-- Latest projects -->
+            <div class="featured-group">
+            <p class="featured-heading">Latest projects</p>
+            <div class="featured-row">
+                <article class="featured" data-category="games">
+                    <video src="previews/elementalWizardWindows.mp4" poster="thumbs/elementalWizardWindows.webp" autoplay muted loop playsinline aria-label="Elemental Wizard gameplay preview"></video>
+                    <div>
+                        <h3>Elemental Wizard</h3>
+                        <p class="tags">Godot · GDScript · 2D isometric · Windows &amp; Android</p>
+                        <p>A fast-paced 1v1 spell-shooter where six elemental spells react to each other: combine air and fire to trigger Combustion. Play a friend locally or take on a CPU opponent, on Windows or Android.</p>
+                        <button class="btn" data-modal="modal12">Watch the demo</button>
+                    </div>
+                </article>
+                <article class="featured" data-category="games">
+                    <div class="media-placeholder" style="--ph-a: #2a9fd6; --ph-b: #0a2a40;"><span class="ph-title">Island Hopper</span><span class="ph-note">Video coming soon</span></div>
+                    <div>
+                        <h3>Micro Airline: Island Hopper</h3>
+                        <p class="tags">Unity · C# · Windows &amp; Android</p>
+                        <p>A cozy aviation sim where you run a bush-plane and seaplane airline across twelve islands, with a detailed flight model you can fly with assists or at full study-level realism.</p>
+                        <button class="btn" data-modal="modal17">Read more</button>
+                    </div>
+                </article>
+            </div>
+            </div>
 
             <div class="filters" role="group" aria-label="Filter projects">
                 <button data-filter="all" aria-pressed="true">All</button>
@@ -1112,6 +1174,9 @@
                 document.querySelectorAll('.project-group').forEach(function(group) {
                     group.hidden = !group.querySelector('.project-card:not([hidden])');
                 });
+                document.querySelectorAll('.featured-group').forEach(function(group) {
+                    group.hidden = !group.querySelector('.featured:not([hidden])');
+                });
             });
         });
 
@@ -1145,10 +1210,11 @@
 
         // Don't autoplay the featured clip for visitors who prefer reduced motion
         if (reducedMotion) {
-            var featuredVideo = document.querySelector('.featured video');
-            featuredVideo.removeAttribute('autoplay');
-            featuredVideo.pause();
-            featuredVideo.controls = true;
+            document.querySelectorAll('.featured video').forEach(function(featuredVideo) {
+                featuredVideo.removeAttribute('autoplay');
+                featuredVideo.pause();
+                featuredVideo.controls = true;
+            });
         }
 
         // Send the contact form through Formspree
