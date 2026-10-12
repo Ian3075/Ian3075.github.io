@@ -2,20 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>Rotline</title>
   <style>
-    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
-    body { display: grid; place-items: center; }
+    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; overscroll-behavior: none; }
+    body { display: grid; place-items: center; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
     /* 640x360 framebuffer scaled to the largest 16:9 box that fits, kept pixel-crisp */
     canvas { display: block; width: min(100vw, 177.78vh); height: min(100vh, 56.25vw); image-rendering: pixelated; outline: none; }
-    #loading { position: fixed; inset: 0; display: grid; place-items: center; text-align: center; color: #d33; font: 18px monospace; line-height: 1.8; }
+    @supports (height: 100dvh) { canvas { width: min(100vw, 177.78dvh); height: min(100dvh, 56.25vw); } }
+    #loading { position: fixed; inset: 0; display: grid; place-items: center; text-align: center; color: #d33; font: 18px monospace; line-height: 1.8; padding: 0 16px; }
     #loading small { color: #888; font-size: 13px; }
+
+    /* Touch controls: shown only while playing on a touch screen */
+    #touch { position: fixed; inset: 0; display: none; font: 700 13px monospace; color: #fff; }
+    #touch.on { display: block; }
+    #touch > div { position: absolute; touch-action: none; }
+    #move { left: 0; top: 0; width: 45%; height: 100%; }
+    #look { right: 0; top: 0; width: 55%; height: 100%; }
+    #stick, #knob { position: absolute; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); display: none; }
+    #stick { width: 120px; height: 120px; border: 2px solid rgba(255, 255, 255, 0.35); background: rgba(255, 255, 255, 0.06); }
+    #knob { width: 52px; height: 52px; background: rgba(255, 255, 255, 0.4); }
+    .tbtn { display: grid; place-items: center; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.45); background: rgba(0, 0, 0, 0.3); letter-spacing: 1px; }
+    .tbtn.down { background: rgba(255, 255, 255, 0.3); }
+    #fire { right: max(22px, env(safe-area-inset-right)); bottom: max(22px, env(safe-area-inset-bottom)); width: 92px; height: 92px; border-color: rgba(230, 60, 60, 0.8); }
+    #swap { right: max(128px, calc(env(safe-area-inset-right) + 106px)); bottom: max(22px, env(safe-area-inset-bottom)); width: 60px; height: 60px; font-size: 11px; }
+    #pause { right: max(14px, env(safe-area-inset-right)); top: max(64px, calc(env(safe-area-inset-top) + 64px)); width: 46px; height: 46px; }
+    #rotate { position: fixed; left: 0; right: 0; top: 0; padding: 8px; text-align: center; background: rgba(0, 0, 0, 0.75); color: #ccc; font: 13px monospace; display: none; pointer-events: none; }
+    @media (orientation: portrait) and (pointer: coarse) { #rotate { display: block; } }
   </style>
 </head>
 <body>
   <canvas id="canvas" width="640" height="360" tabindex="-1" oncontextmenu="event.preventDefault()"></canvas>
-  <div id="loading"><div>Loading Rotline...<br><small>Keyboard and mouse required. Click the game to capture the mouse, Esc to pause.</small></div></div>
+  <div id="touch">
+    <div id="move"><span id="stick"></span><span id="knob"></span></div>
+    <div id="look"></div>
+    <div id="swap" class="tbtn">SWAP</div>
+    <div id="fire" class="tbtn">FIRE</div>
+    <div id="pause" class="tbtn">II</div>
+  </div>
+  <div id="rotate">Rotate your device for a bigger view</div>
+  <div id="loading"><div>Loading Rotline...<br><small>Keyboard and mouse: click the game to capture the mouse, Esc to pause.<br>Touch: tap the menus, left thumb moves, right thumb looks.</small></div></div>
   <script>
     var Module = {
       canvas: document.getElementById('canvas'),
@@ -26,13 +52,96 @@
         Module.FS.mount(Module.IDBFS, {}, '/save');
         Module.FS.syncfs(true, function () { Module.removeRunDependency('save'); });
       }],
-      onRuntimeInitialized: function () { document.getElementById('loading').remove(); },
+      onRuntimeInitialized: function () { document.getElementById('loading').remove(); requestAnimationFrame(syncTouchUi); },
       onAbort: function () { var l = document.getElementById('loading'); if (l) l.textContent = 'Rotline failed to start in this browser.'; }
     };
     // Esc releases pointer lock before the game sees the key, so pause from here.
     document.addEventListener('pointerlockchange', function () {
       if (!document.pointerLockElement && Module._rotline_pointer_lost) Module._rotline_pointer_lost();
     });
+
+    // ---- touch controls. Menus and story cards need none: the game treats taps as clicks.
+    var touchUi = document.getElementById('touch');
+    var usingTouch = false;
+    window.addEventListener('touchstart', function () { usingTouch = true; }, true);
+    window.addEventListener('keydown', function () { usingTouch = false; }, true);
+
+    function syncTouchUi() {
+      var on = usingTouch && Module._rotline_is_playing() === 1;
+      if (on !== touchUi.classList.contains('on')) {
+        touchUi.classList.toggle('on', on);
+        if (!on) releaseAll();
+      }
+      requestAnimationFrame(syncTouchUi);
+    }
+
+    var LOOK_SCALE = 2.5, STICK_RADIUS = 60;
+    var moveEl = document.getElementById('move'), stick = document.getElementById('stick'), knob = document.getElementById('knob');
+    var moveId = null, moveX = 0, moveY = 0;
+
+    function setKnob(x, y) { knob.style.left = x + 'px'; knob.style.top = y + 'px'; }
+    function endMove() {
+      moveId = null;
+      stick.style.display = knob.style.display = 'none';
+      if (Module._rotline_touch_move) Module._rotline_touch_move(0, 0);
+    }
+    moveEl.addEventListener('pointerdown', function (e) {
+      if (moveId !== null) return;
+      moveId = e.pointerId; moveX = e.clientX; moveY = e.clientY;
+      moveEl.setPointerCapture(e.pointerId);
+      stick.style.left = moveX + 'px'; stick.style.top = moveY + 'px';
+      setKnob(moveX, moveY);
+      stick.style.display = knob.style.display = 'block';
+    });
+    moveEl.addEventListener('pointermove', function (e) {
+      if (e.pointerId !== moveId) return;
+      var dx = e.clientX - moveX, dy = e.clientY - moveY, len = Math.hypot(dx, dy);
+      if (len > STICK_RADIUS) { dx *= STICK_RADIUS / len; dy *= STICK_RADIUS / len; }
+      setKnob(moveX + dx, moveY + dy);
+      Module._rotline_touch_move(-dy / STICK_RADIUS, dx / STICK_RADIUS);
+    });
+    ['pointerup', 'pointercancel'].forEach(function (t) {
+      moveEl.addEventListener(t, function (e) { if (e.pointerId === moveId) endMove(); });
+    });
+
+    // Dragging anywhere on the right side turns; the fire button turns too, so you can aim while shooting.
+    var lookLast = {};
+    function lookDown(e) { lookLast[e.pointerId] = e.clientX; e.currentTarget.setPointerCapture(e.pointerId); }
+    function lookMove(e) {
+      if (!(e.pointerId in lookLast)) return;
+      Module._rotline_touch_look((e.clientX - lookLast[e.pointerId]) * LOOK_SCALE);
+      lookLast[e.pointerId] = e.clientX;
+    }
+    function lookUp(e) { delete lookLast[e.pointerId]; }
+    var lookEl = document.getElementById('look'), fireEl = document.getElementById('fire');
+    [lookEl, fireEl].forEach(function (el) {
+      el.addEventListener('pointerdown', lookDown);
+      el.addEventListener('pointermove', lookMove);
+      el.addEventListener('pointerup', lookUp);
+      el.addEventListener('pointercancel', lookUp);
+    });
+
+    var fireId = null;
+    function endFire() {
+      if (fireId === null) return;
+      fireId = null;
+      fireEl.classList.remove('down');
+      if (Module._rotline_touch_fire) Module._rotline_touch_fire(0);
+    }
+    fireEl.addEventListener('pointerdown', function (e) {
+      if (fireId !== null) return;
+      fireId = e.pointerId;
+      fireEl.classList.add('down');
+      Module._rotline_touch_fire(1);
+    });
+    ['pointerup', 'pointercancel'].forEach(function (t) {
+      fireEl.addEventListener(t, function (e) { if (e.pointerId === fireId) endFire(); });
+    });
+
+    document.getElementById('swap').addEventListener('pointerdown', function () { Module._rotline_touch_swap(); });
+    document.getElementById('pause').addEventListener('pointerdown', function () { Module._rotline_pointer_lost(); });
+
+    function releaseAll() { endMove(); endFire(); lookLast = {}; }
   </script>
   <script src="rotline.js"></script>
 </body>
