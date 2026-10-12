@@ -10,18 +10,24 @@
     /* 640x360 framebuffer scaled to the largest 16:9 box that fits, kept pixel-crisp */
     canvas { display: block; width: min(100vw, 177.78vh); height: min(100vh, 56.25vw); image-rendering: pixelated; outline: none; }
     @supports (height: 100dvh) { canvas { width: min(100vw, 177.78dvh); height: min(100dvh, 56.25vw); } }
-    #loading { position: fixed; inset: 0; display: grid; place-items: center; text-align: center; color: #d33; font: 18px monospace; line-height: 1.8; padding: 0 16px; }
+    #loading { position: fixed; left: 0; top: 0; right: 0; bottom: 0; display: grid; place-items: center; text-align: center; color: #d33; font: 18px monospace; line-height: 1.8; padding: 0 16px; }
     #loading small { color: #888; font-size: 13px; }
 
     /* Touch controls: shown only while playing on a touch screen */
-    #touch { position: fixed; inset: 0; display: none; font: 700 13px monospace; color: #fff; }
+    #touch { position: fixed; left: 0; top: 0; right: 0; bottom: 0; display: none; font: 700 13px monospace; color: #fff; }
     #touch.on { display: block; }
     #touch > div { position: absolute; touch-action: none; }
     #move { left: 0; top: 0; width: 45%; height: 100%; }
     #look { right: 0; top: 0; width: 55%; height: 100%; }
-    #stick, #knob { position: absolute; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); display: none; }
-    #stick { width: 120px; height: 120px; border: 2px solid rgba(255, 255, 255, 0.35); background: rgba(255, 255, 255, 0.06); }
-    #knob { width: 52px; height: 52px; background: rgba(255, 255, 255, 0.4); }
+    /* The stick rests bottom-left and jumps under the thumb when the left side is touched elsewhere */
+    #stick, #knob { position: absolute; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); }
+    #stick { width: 120px; height: 120px; border: 2px solid rgba(255, 255, 255, 0.5); background: rgba(255, 255, 255, 0.1); }
+    #knob { width: 52px; height: 52px; background: rgba(255, 255, 255, 0.45); }
+    #move.held #stick { border-color: rgba(255, 255, 255, 0.8); }
+    #move.held #knob { background: rgba(255, 255, 255, 0.75); }
+    #hint { left: 0; right: 0; top: 40%; text-align: center; pointer-events: none; font-size: 12px; letter-spacing: 1px; text-shadow: 0 0 4px #000, 0 0 4px #000; opacity: 0; }
+    #hint.show { animation: hint 6s forwards; }
+    @keyframes hint { 0%, 75% { opacity: 1; } 100% { opacity: 0; } }
     .tbtn { display: grid; place-items: center; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.45); background: rgba(0, 0, 0, 0.3); letter-spacing: 1px; }
     .tbtn.down { background: rgba(255, 255, 255, 0.3); }
     #fire { right: max(22px, env(safe-area-inset-right)); bottom: max(22px, env(safe-area-inset-bottom)); width: 92px; height: 92px; border-color: rgba(230, 60, 60, 0.8); }
@@ -36,6 +42,7 @@
   <div id="touch">
     <div id="move"><span id="stick"></span><span id="knob"></span></div>
     <div id="look"></div>
+    <div id="hint">LEFT STICK: MOVE &nbsp;&middot;&nbsp; DRAG RIGHT SIDE: LOOK</div>
     <div id="swap" class="tbtn">SWAP</div>
     <div id="fire" class="tbtn">FIRE</div>
     <div id="pause" class="tbtn">II</div>
@@ -56,57 +63,79 @@
       onAbort: function () { var l = document.getElementById('loading'); if (l) l.textContent = 'Rotline failed to start in this browser.'; }
     };
     // Esc releases pointer lock before the game sees the key, so pause from here.
+    // A touch screen has no mouse to capture, so a dropped lock must not pause a touch player.
     document.addEventListener('pointerlockchange', function () {
-      if (!document.pointerLockElement && Module._rotline_pointer_lost) Module._rotline_pointer_lost();
+      if (!usingTouch && !document.pointerLockElement && Module._rotline_pointer_lost) Module._rotline_pointer_lost();
     });
 
     // ---- touch controls. Menus and story cards need none: the game treats taps as clicks.
+    // Phones start in touch mode; any touch switches to it and a real key press switches back.
     var touchUi = document.getElementById('touch');
-    var usingTouch = false;
+    var usingTouch = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+    var sentTouch = null, hintShown = false;
     window.addEventListener('touchstart', function () { usingTouch = true; }, true);
-    window.addEventListener('keydown', function () { usingTouch = false; }, true);
+    window.addEventListener('pointerdown', function (e) { if (e.pointerType === 'touch') usingTouch = true; }, true);
+    window.addEventListener('keydown', function (e) { if (e.key && e.key !== 'Unidentified') usingTouch = false; }, true);
 
     function syncTouchUi() {
+      requestAnimationFrame(syncTouchUi);
+      if (!Module._rotline_is_playing) return;
+      if (sentTouch !== usingTouch && Module._rotline_set_touch && Module._rotline_set_touch(usingTouch ? 1 : 0)) sentTouch = usingTouch;
       var on = usingTouch && Module._rotline_is_playing() === 1;
       if (on !== touchUi.classList.contains('on')) {
         touchUi.classList.toggle('on', on);
-        if (!on) releaseAll();
+        if (!on) { releaseAll(); return; }
+        homeStick();
+        if (!hintShown) { hintShown = true; document.getElementById('hint').classList.add('show'); }
       }
-      requestAnimationFrame(syncTouchUi);
     }
 
     var LOOK_SCALE = 2.5, STICK_RADIUS = 60;
     var moveEl = document.getElementById('move'), stick = document.getElementById('stick'), knob = document.getElementById('knob');
-    var moveId = null, moveX = 0, moveY = 0;
+    var moveId = null, moveX = 0, moveY = 0, homeX = 0, homeY = 0;
 
+    function capture(el, e) { try { el.setPointerCapture(e.pointerId); } catch (err) {} }
     function setKnob(x, y) { knob.style.left = x + 'px'; knob.style.top = y + 'px'; }
-    function endMove() {
-      moveId = null;
-      stick.style.display = knob.style.display = 'none';
-      if (Module._rotline_touch_move) Module._rotline_touch_move(0, 0);
+    function placeStick(x, y) { stick.style.left = x + 'px'; stick.style.top = y + 'px'; setKnob(x, y); }
+    function homeStick() {
+      var r = moveEl.getBoundingClientRect();
+      homeX = Math.min(120, r.width / 2);
+      homeY = r.height - Math.min(110, r.height / 2);
+      if (moveId === null) placeStick(homeX, homeY);
     }
-    moveEl.addEventListener('pointerdown', function (e) {
-      if (moveId !== null) return;
-      moveId = e.pointerId; moveX = e.clientX; moveY = e.clientY;
-      moveEl.setPointerCapture(e.pointerId);
-      stick.style.left = moveX + 'px'; stick.style.top = moveY + 'px';
-      setKnob(moveX, moveY);
-      stick.style.display = knob.style.display = 'block';
-    });
-    moveEl.addEventListener('pointermove', function (e) {
-      if (e.pointerId !== moveId) return;
+    window.addEventListener('resize', homeStick);
+
+    function steer(e) {
       var dx = e.clientX - moveX, dy = e.clientY - moveY, len = Math.hypot(dx, dy);
       if (len > STICK_RADIUS) { dx *= STICK_RADIUS / len; dy *= STICK_RADIUS / len; }
       setKnob(moveX + dx, moveY + dy);
       Module._rotline_touch_move(-dy / STICK_RADIUS, dx / STICK_RADIUS);
+    }
+    function endMove() {
+      moveId = null;
+      moveEl.classList.remove('held');
+      placeStick(homeX, homeY);
+      if (Module._rotline_touch_move) Module._rotline_touch_move(0, 0);
+    }
+    moveEl.addEventListener('pointerdown', function (e) {
+      if (moveId !== null) return;
+      moveId = e.pointerId;
+      // A touch on the resting stick pushes it from its centre; anywhere else the stick jumps under the thumb.
+      var onStick = Math.hypot(e.clientX - homeX, e.clientY - homeY) <= STICK_RADIUS * 1.5;
+      moveX = onStick ? homeX : e.clientX; moveY = onStick ? homeY : e.clientY;
+      capture(moveEl, e);
+      placeStick(moveX, moveY);
+      moveEl.classList.add('held');
+      steer(e);
     });
+    moveEl.addEventListener('pointermove', function (e) { if (e.pointerId === moveId) steer(e); });
     ['pointerup', 'pointercancel'].forEach(function (t) {
       moveEl.addEventListener(t, function (e) { if (e.pointerId === moveId) endMove(); });
     });
 
     // Dragging anywhere on the right side turns; the fire button turns too, so you can aim while shooting.
     var lookLast = {};
-    function lookDown(e) { lookLast[e.pointerId] = e.clientX; e.currentTarget.setPointerCapture(e.pointerId); }
+    function lookDown(e) { lookLast[e.pointerId] = e.clientX; capture(e.currentTarget, e); }
     function lookMove(e) {
       if (!(e.pointerId in lookLast)) return;
       Module._rotline_touch_look((e.clientX - lookLast[e.pointerId]) * LOOK_SCALE);
