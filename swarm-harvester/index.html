@@ -3,23 +3,79 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#05070c">
   <title>Swarm Harvester</title>
   <style>
-    html, body { margin: 0; height: 100%; background: #05070c; overflow: hidden; }
+    html, body { margin: 0; height: 100%; background: #05070c; overflow: hidden; overscroll-behavior: none; }
+    /* Fixed, so a stray swipe cannot scroll or bounce the page on phones. */
+    body { position: fixed; inset: 0; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
     canvas { display: block; touch-action: none; outline: none; }
-    #loading { position: fixed; inset: 0; display: grid; place-items: center; color: #66d9ff; font: 18px monospace; }
+    [hidden] { display: none !important; }
+    .screen {
+      position: fixed; inset: 0; z-index: 5; display: grid; place-items: center; padding: 24px;
+      background: #05070c; color: #66d9ff; font: 18px monospace; text-align: center;
+    }
+    .screen h1 { margin: 0 0 12px; font-size: 28px; letter-spacing: 2px; }
+    .screen p { margin: 0 0 22px; color: #99a8bd; }
+    .screen button {
+      padding: 14px 34px; border: 0; border-radius: 6px; background: #2ec4e6; color: #05070c;
+      font: bold 20px monospace; cursor: pointer;
+    }
+    /* The map is landscape, so a phone held upright is asked to turn. */
+    #rotate { display: none; z-index: 10; }
+    @media (orientation: portrait) and (pointer: coarse) { #rotate { display: grid; } }
   </style>
 </head>
 <body>
-  <div id="loading">Launching swarm...</div>
+  <div id="loading" class="screen" hidden>Launching swarm...</div>
+  <div id="start" class="screen" hidden>
+    <div>
+      <h1>SWARM HARVESTER</h1>
+      <p>Plays in landscape, with touch.</p>
+      <button id="play" type="button">Tap to play</button>
+    </div>
+  </div>
+  <div id="rotate" class="screen"><div>Turn your device sideways to play.</div></div>
   <script type="module">
     import init from "./pkg/swarm-harvester.js";
-    init()
-      .catch((error) => {
+
+    const loading = document.getElementById("loading");
+    const start = document.getElementById("start");
+
+    async function launch() {
+      loading.hidden = false;
+      try {
+        await init();
+      } catch (error) {
         // winit unwinds out of its event loop setup with this exception by design.
         if (!String(error.message).startsWith("Using exceptions for control flow")) throw error;
-      })
-      .finally(() => document.getElementById("loading").remove());
+      } finally {
+        loading.remove();
+      }
+    }
+
+    if (matchMedia("(pointer: coarse)").matches) {
+      // On touch devices, wait for a tap: browsers only allow fullscreen and
+      // an orientation lock in response to one. Android honours both; iOS
+      // ignores them and the game simply runs in the page.
+      start.hidden = false;
+      document.getElementById("play").addEventListener("click", () => {
+        start.remove();
+        // Best effort, and never waited on: some browsers leave the request
+        // pending, and the game must start either way.
+        try {
+          document.documentElement.requestFullscreen?.({ navigationUI: "hide" })
+            ?.then(() => screen.orientation?.lock?.("landscape"))
+            .catch(() => {});
+        } catch {
+          // Not supported here.
+        }
+        launch();
+      }, { once: true });
+    } else {
+      launch();
+    }
   </script>
 </body>
 </html>
