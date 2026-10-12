@@ -788,8 +788,9 @@
 
         /* Play in Browser: games that run right on this site */
         #play { --accent: #2ec4e6; }
-        .play-intro { max-width: 700px; margin: -10px auto 25px; line-height: 1.6; opacity: 0.85; }
-        .play-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 540px)); justify-content: center; gap: 25px; max-width: 1100px; margin: 0 auto; }
+        .play-group { scroll-margin-top: 70px; }
+        .play-intro { max-width: 700px; margin: -5px auto 20px; line-height: 1.6; opacity: 0.85; }
+        .play-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 540px)); justify-content: center; align-items: start; gap: 25px; max-width: 1100px; margin: 0 auto 40px; }
         .play-actions { display: flex; flex-wrap: wrap; gap: 12px; }
         a.btn { text-decoration: none; }
         .btn.secondary, .btn.secondary:hover, .btn.secondary:focus-visible { background: transparent; color: #ecf0f1; box-shadow: inset 0 0 0 2px var(--accent); }
@@ -804,9 +805,9 @@
             <h1><a href="#about">Ian Conradie</a></h1>
             <nav>
                 <a href="#about">About</a>
-                <a href="#play">Play</a>
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
+                <a href="#play">Play</a>
                 <a href="#contact">Contact</a>
             </nav>
             <div class="social">
@@ -827,26 +828,6 @@
                     <p>I'm a games developer who cares about what makes a game memorable: satisfying mechanics, worlds worth exploring and stories that stick with you. With 2 years of professional experience and an education in Games Development, I work across Unity, Godot and Unreal, from 3D and VR worlds to fast-paced 2D, educational and puzzle games. Outside of games, I also work as a systems developer, building software, mobile apps and full-stack web applications.</p>
                     <p>When I'm not making games, I'm playing them, usually losing hours in a sprawling RPG or jumping into a few missions of an FPS.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Play in Browser Section: games that run right on this site -->
-        <section id="play">
-            <h2 class="section-title">Play in Browser</h2>
-            <p class="play-intro">Games you can play right here on this site. No download or install needed.</p>
-            <div class="play-row">
-                <article class="featured">
-                    <div class="media-placeholder" style="--ph-a: #2ec4e6; --ph-b: #071824;"><span class="ph-title">Swarm Harvester</span><span class="ph-note">Runs in your browser</span></div>
-                    <div>
-                        <h3>Swarm Harvester</h3>
-                        <p class="tags">Rust · Bevy · WebAssembly</p>
-                        <p>Command a swarm of 2,000 autonomous drones. They mine and haul on their own; you steer them with a beacon, barriers and three abilities, and decide how much of the swarm to risk on the rich deposits under the vents.</p>
-                        <div class="play-actions">
-                            <a class="btn" href="swarm-harvester/">Play now</a>
-                            <button class="btn secondary" data-modal="modal19">About the game</button>
-                        </div>
-                    </div>
-                </article>
             </div>
         </section>
 
@@ -930,6 +911,38 @@
             </div>
             </div>
 
+            <!-- Play in Browser: games that run right on this site -->
+            <div id="play" class="play-group">
+            <p class="featured-heading">Play in Browser</p>
+            <p class="play-intro">Games you can play right here on this site. No download or install needed.</p>
+            <div class="play-row">
+                <article class="featured">
+                    <video src="previews/rotline.mp4" poster="thumbs/rotline.webp" autoplay muted loop playsinline aria-label="Rotline gameplay preview"></video>
+                    <div>
+                        <h3>Rotline</h3>
+                        <p class="tags">C++ · Raycasting · WebAssembly</p>
+                        <p>A retro raycast shooter set after a lab virus outbreak. Fight through four zones of mutated people and animals to recover the cure, running on my own C++ engine compiled for the browser. Keyboard and mouse.</p>
+                        <div class="play-actions">
+                            <a class="btn" href="rotline/">Play now</a>
+                            <button class="btn secondary" data-modal="modal18">About the game</button>
+                        </div>
+                    </div>
+                </article>
+                <article class="featured">
+                    <div class="media-placeholder" style="--ph-a: #2ec4e6; --ph-b: #071824;"><span class="ph-title">Swarm Harvester</span><span class="ph-note">Runs in your browser</span></div>
+                    <div>
+                        <h3>Swarm Harvester</h3>
+                        <p class="tags">Rust · Bevy · WebAssembly</p>
+                        <p>Command a swarm of 2,000 autonomous drones. They mine and haul on their own; you steer them with a beacon, barriers and three abilities, and decide how much of the swarm to risk on the rich deposits under the vents.</p>
+                        <div class="play-actions">
+                            <a class="btn" href="swarm-harvester/">Play now</a>
+                            <button class="btn secondary" data-modal="modal19">About the game</button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            </div>
+
             <div class="filters" role="group" aria-label="Filter projects">
                 <button data-filter="all" aria-pressed="true">All</button>
                 <button data-filter="games" aria-pressed="false">Games</button>
@@ -942,24 +955,24 @@
                 <div class="projects">
                     <button class="project-card phone" data-modal="modal13" data-category="apps" data-preview="previews/phasmoCompanion.mp4"><span class="thumb"><span class="screen"><img src="thumbs/phasmoCompanionCard.webp" alt="" loading="lazy"></span></span><span class="card-text">PhasmoCompanion<small>Android · Kotlin · AI</small></span></button>
                     <button class="project-card" data-modal="modal19" data-category="games" data-playable><span class="thumb placeholder" style="--ph-a: #2ec4e6; --ph-b: #071824;"><span class="ph-title">Swarm Harvester</span><span class="ph-note">Playable in your browser</span></span><span class="card-text">Swarm Harvester<small>Rust · Bevy · WebAssembly</small></span></button>
-                    <button class="project-card" data-modal="modal18" data-category="games" data-preview="previews/rotline.mp4"><span class="thumb"><img src="thumbs/rotline.webp" alt="" loading="lazy"></span><span class="card-text">Rotline<small>C++ · Raycasting · Custom engine</small></span></button>
+                    <button class="project-card" data-modal="modal18" data-category="games" data-playable data-preview="previews/rotline.mp4"><span class="thumb"><img src="thumbs/rotline.webp" alt="" loading="lazy"></span><span class="card-text">Rotline<small>C++ · Raycasting · Custom engine</small></span></button>
                     <button class="project-card" data-modal="modal17" data-category="games"><span class="thumb placeholder" style="--ph-a: #2a9fd6; --ph-b: #0a2a40;"><span class="ph-title">Island Hopper</span><span class="ph-note">Video coming soon</span></span><span class="card-text">Micro Airline: Island Hopper<small>Unity · C# · Windows &amp; Android</small></span></button>
                     <button class="project-card" data-modal="modal14" data-category="games"><span class="thumb placeholder" style="--ph-a: #0e4a6e; --ph-b: #03121f;"><span class="ph-title">Sub Escape</span><span class="ph-note">Video coming soon</span></span><span class="card-text">Sub Escape<small>Unity · Blender · 3D</small></span></button>
                     <button class="project-card" data-modal="modal15" data-category="games"><span class="thumb placeholder" style="--ph-a: #3f8f3a; --ph-b: #12301a;"><span class="ph-title">Virtual Garden</span><span class="ph-note">Video coming soon</span></span><span class="card-text">Virtual Garden<small>Unity · 3D · Low-poly</small></span></button>
                     <button class="project-card" data-modal="modal16" data-category="games" data-preview="previews/maJong.mp4"><span class="thumb"><img src="thumbs/maJong.webp" alt="" loading="lazy"></span><span class="card-text">Ma-Jong<small>Godot · Android &amp; PC</small></span></button>
-                    <button class="project-card" data-modal="modal4" data-category="games"><span class="thumb"><img src="thumbs/obsidianMirage.webp" alt="" loading="lazy"></span><span class="card-text">Obsidian Mirage<small>Unity · 3D · Group project</small></span></button>
-                    <button class="project-card" data-modal="modal11" data-category="games" data-preview="previews/adventureCollectable.mp4"><span class="thumb"><img src="thumbs/adventureCollectable.webp" alt="" loading="lazy"></span><span class="card-text">Adventure Collectable<small>Unity · 3D</small></span></button>
                     <button class="project-card" data-modal="modal2" data-category="games" data-preview="previews/carShooterGame.mp4"><span class="thumb"><img src="thumbs/carShooterGame.webp" alt="" loading="lazy"></span><span class="card-text">Car Shooter<small>Unity · 2D</small></span></button>
-                    <button class="project-card" data-modal="modal3" data-category="games"><span class="thumb"><img src="thumbs/adventureTimeMenu.webp" alt="" loading="lazy"></span><span class="card-text">Adventure Time<small>Unity · 2D platformer</small></span></button>
-                    <button class="project-card" data-modal="modal7" data-category="games" data-preview="previews/obstacleCourse2.mp4"><span class="thumb"><img src="thumbs/obstacleCourse2.webp" alt="" loading="lazy"></span><span class="card-text">Obstacle Course<small>Unity · 3D</small></span></button>
-                    <button class="project-card" data-modal="modal1" data-category="games" data-preview="previews/fruitCatcherGame.mp4"><span class="thumb"><img src="thumbs/fruitCatcherGame.webp" alt="" loading="lazy"></span><span class="card-text">Fruit Catcher<small>Unity · 3D</small></span></button>
-                    <button class="project-card" data-modal="modal9" data-category="art"><span class="thumb"><img src="thumbs/ramenShop.webp" alt="" loading="lazy"></span><span class="card-text">Ramen Shop<small>Blender · Low-poly</small></span></button>
                 </div>
             </div>
 
             <div class="project-group">
                 <h3 class="sub-title">Exercises &amp; Studies</h3>
                 <div class="projects compact">
+                    <button class="project-card" data-modal="modal4" data-category="games"><span class="thumb"><img src="thumbs/obsidianMirage.webp" alt="" loading="lazy"></span><span class="card-text">Obsidian Mirage<small>Unity · 3D · Group project</small></span></button>
+                    <button class="project-card" data-modal="modal11" data-category="games" data-preview="previews/adventureCollectable.mp4"><span class="thumb"><img src="thumbs/adventureCollectable.webp" alt="" loading="lazy"></span><span class="card-text">Adventure Collectable<small>Unity · 3D</small></span></button>
+                    <button class="project-card" data-modal="modal3" data-category="games"><span class="thumb"><img src="thumbs/adventureTimeMenu.webp" alt="" loading="lazy"></span><span class="card-text">Adventure Time<small>Unity · 2D platformer</small></span></button>
+                    <button class="project-card" data-modal="modal7" data-category="games" data-preview="previews/obstacleCourse2.mp4"><span class="thumb"><img src="thumbs/obstacleCourse2.webp" alt="" loading="lazy"></span><span class="card-text">Obstacle Course<small>Unity · 3D</small></span></button>
+                    <button class="project-card" data-modal="modal1" data-category="games" data-preview="previews/fruitCatcherGame.mp4"><span class="thumb"><img src="thumbs/fruitCatcherGame.webp" alt="" loading="lazy"></span><span class="card-text">Fruit Catcher<small>Unity · 3D</small></span></button>
+                    <button class="project-card" data-modal="modal9" data-category="art"><span class="thumb"><img src="thumbs/ramenShop.webp" alt="" loading="lazy"></span><span class="card-text">Ramen Shop<small>Blender · Low-poly</small></span></button>
                     <button class="project-card" data-modal="modal5" data-category="art"><span class="thumb"><img src="https://img.youtube.com/vi/hEBXsjY-IWs/hqdefault.jpg" alt="" loading="lazy"></span><span class="card-text">Tech Expo<small>Unity · Blender · Group project</small></span></button>
                     <button class="project-card" data-modal="modal6" data-category="art" data-preview="previews/terrainRain2.mp4"><span class="thumb"><img src="thumbs/terrainRain2.webp" alt="" loading="lazy"></span><span class="card-text">Terrain with Rain<small>Unity · Environment</small></span></button>
                     <button class="project-card" data-modal="modal8" data-category="art" data-preview="previews/gamingPC.mp4"><span class="thumb"><img src="thumbs/gamingPC.webp" alt="" loading="lazy"></span><span class="card-text">Gaming PC<small>Blender</small></span></button>
@@ -1003,6 +1016,7 @@
                 <source src="rotline.mp4" type="video/mp4">
             </video>
         </div>
+        <p><a href="rotline/" target="_blank" rel="noopener">Play it in your browser</a> (keyboard and mouse).</p>
     </dialog>
 
     <dialog id="modal17" class="modal" aria-labelledby="modal17-title">

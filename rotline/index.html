@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rotline</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; overflow: hidden; }
+    body { display: grid; place-items: center; }
+    /* 640x360 framebuffer scaled to the largest 16:9 box that fits, kept pixel-crisp */
+    canvas { display: block; width: min(100vw, 177.78vh); height: min(100vh, 56.25vw); image-rendering: pixelated; outline: none; }
+    #loading { position: fixed; inset: 0; display: grid; place-items: center; text-align: center; color: #d33; font: 18px monospace; line-height: 1.8; }
+    #loading small { color: #888; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="640" height="360" tabindex="-1" oncontextmenu="event.preventDefault()"></canvas>
+  <div id="loading"><div>Loading Rotline...<br><small>Keyboard and mouse required. Click the game to capture the mouse, Esc to pause.</small></div></div>
+  <script>
+    var Module = {
+      canvas: document.getElementById('canvas'),
+      // Mount an IndexedDB-backed folder so settings and unlocked zones survive a reload.
+      preRun: [function () {
+        Module.addRunDependency('save');
+        Module.FS.mkdir('/save');
+        Module.FS.mount(Module.IDBFS, {}, '/save');
+        Module.FS.syncfs(true, function () { Module.removeRunDependency('save'); });
+      }],
+      onRuntimeInitialized: function () { document.getElementById('loading').remove(); },
+      onAbort: function () { var l = document.getElementById('loading'); if (l) l.textContent = 'Rotline failed to start in this browser.'; }
+    };
+    // Esc releases pointer lock before the game sees the key, so pause from here.
+    document.addEventListener('pointerlockchange', function () {
+      if (!document.pointerLockElement && Module._rotline_pointer_lost) Module._rotline_pointer_lost();
+    });
+  </script>
+  <script src="rotline.js"></script>
+</body>
+</html>
