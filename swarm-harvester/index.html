@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Swarm Harvester</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #05070c; overflow: hidden; }
+    canvas { display: block; touch-action: none; outline: none; }
+    #loading { position: fixed; inset: 0; display: grid; place-items: center; color: #66d9ff; font: 18px monospace; }
+  </style>
+</head>
+<body>
+  <div id="loading">Launching swarm...</div>
+  <script type="module">
+    import init from "./pkg/swarm-harvester.js";
+    init()
+      .catch((error) => {
+        // winit unwinds out of its event loop setup with this exception by design.
+        if (!String(error.message).startsWith("Using exceptions for control flow")) throw error;
+      })
+      .finally(() => document.getElementById("loading").remove());
+  </script>
+</body>
+</html>
