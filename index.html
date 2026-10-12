@@ -786,6 +786,15 @@
         @media (prefers-reduced-motion: reduce) { .intro-text h2::after { animation: none; } }
         @media (max-width: 768px) { .section-title { font-size: 0.95rem; } }
 
+        /* Play in Browser: games that run right on this site */
+        #play { --accent: #2ec4e6; }
+        .play-intro { max-width: 700px; margin: -10px auto 25px; line-height: 1.6; opacity: 0.85; }
+        .play-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 540px)); justify-content: center; gap: 25px; max-width: 1100px; margin: 0 auto; }
+        .play-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+        a.btn { text-decoration: none; }
+        .btn.secondary, .btn.secondary:hover, .btn.secondary:focus-visible { background: transparent; color: #ecf0f1; box-shadow: inset 0 0 0 2px var(--accent); }
+        .btn.secondary:hover, .btn.secondary:focus-visible { background: rgba(255, 255, 255, 0.08); }
+
     </style>
 </head>
 <body>
@@ -795,6 +804,7 @@
             <h1><a href="#about">Ian Conradie</a></h1>
             <nav>
                 <a href="#about">About</a>
+                <a href="#play">Play</a>
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
@@ -817,6 +827,26 @@
                     <p>I'm a games developer who cares about what makes a game memorable: satisfying mechanics, worlds worth exploring and stories that stick with you. With 2 years of professional experience and an education in Games Development, I work across Unity, Godot and Unreal, from 3D and VR worlds to fast-paced 2D, educational and puzzle games. Outside of games, I also work as a systems developer, building software, mobile apps and full-stack web applications.</p>
                     <p>When I'm not making games, I'm playing them, usually losing hours in a sprawling RPG or jumping into a few missions of an FPS.</p>
                 </div>
+            </div>
+        </section>
+
+        <!-- Play in Browser Section: games that run right on this site -->
+        <section id="play">
+            <h2 class="section-title">Play in Browser</h2>
+            <p class="play-intro">Games you can play right here on this site. No download or install needed.</p>
+            <div class="play-row">
+                <article class="featured">
+                    <div class="media-placeholder" style="--ph-a: #2ec4e6; --ph-b: #071824;"><span class="ph-title">Swarm Harvester</span><span class="ph-note">Runs in your browser</span></div>
+                    <div>
+                        <h3>Swarm Harvester</h3>
+                        <p class="tags">Rust · Bevy · WebAssembly</p>
+                        <p>Command a swarm of 2,000 autonomous drones. They mine and haul on their own; you steer them with a beacon, barriers and three abilities, and decide how much of the swarm to risk on the rich deposits under the vents.</p>
+                        <div class="play-actions">
+                            <a class="btn" href="swarm-harvester/">Play now</a>
+                            <button class="btn secondary" data-modal="modal19">About the game</button>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -903,6 +933,7 @@
             <div class="filters" role="group" aria-label="Filter projects">
                 <button data-filter="all" aria-pressed="true">All</button>
                 <button data-filter="games" aria-pressed="false">Games</button>
+                <button data-filter="playable" aria-pressed="false">Playable</button>
                 <button data-filter="art" aria-pressed="false">3D Art</button>
                 <button data-filter="apps" aria-pressed="false">Apps</button>
             </div>
@@ -910,7 +941,7 @@
             <div class="project-group">
                 <div class="projects">
                     <button class="project-card phone" data-modal="modal13" data-category="apps" data-preview="previews/phasmoCompanion.mp4"><span class="thumb"><span class="screen"><img src="thumbs/phasmoCompanionCard.webp" alt="" loading="lazy"></span></span><span class="card-text">PhasmoCompanion<small>Android · Kotlin · AI</small></span></button>
-                    <button class="project-card" data-modal="modal19" data-category="games"><span class="thumb placeholder" style="--ph-a: #2ec4e6; --ph-b: #071824;"><span class="ph-title">Swarm Harvester</span><span class="ph-note">Playable in your browser</span></span><span class="card-text">Swarm Harvester<small>Rust · Bevy · WebAssembly</small></span></button>
+                    <button class="project-card" data-modal="modal19" data-category="games" data-playable><span class="thumb placeholder" style="--ph-a: #2ec4e6; --ph-b: #071824;"><span class="ph-title">Swarm Harvester</span><span class="ph-note">Playable in your browser</span></span><span class="card-text">Swarm Harvester<small>Rust · Bevy · WebAssembly</small></span></button>
                     <button class="project-card" data-modal="modal18" data-category="games" data-preview="previews/rotline.mp4"><span class="thumb"><img src="thumbs/rotline.webp" alt="" loading="lazy"></span><span class="card-text">Rotline<small>C++ · Raycasting · Custom engine</small></span></button>
                     <button class="project-card" data-modal="modal17" data-category="games"><span class="thumb placeholder" style="--ph-a: #2a9fd6; --ph-b: #0a2a40;"><span class="ph-title">Island Hopper</span><span class="ph-note">Video coming soon</span></span><span class="card-text">Micro Airline: Island Hopper<small>Unity · C# · Windows &amp; Android</small></span></button>
                     <button class="project-card" data-modal="modal14" data-category="games"><span class="thumb placeholder" style="--ph-a: #0e4a6e; --ph-b: #03121f;"><span class="ph-title">Sub Escape</span><span class="ph-note">Video coming soon</span></span><span class="card-text">Sub Escape<small>Unity · Blender · 3D</small></span></button>
@@ -1189,8 +1220,11 @@
                 filterButtons.forEach(function(b) {
                     b.setAttribute('aria-pressed', b === button ? 'true' : 'false');
                 });
-                document.querySelectorAll('.project-card, .featured').forEach(function(item) {
-                    item.hidden = filter !== 'all' && item.dataset.category !== filter;
+                // "Playable" cuts across categories: anything marked data-playable.
+                // The Play in Browser section sits outside the filters and is never hidden.
+                document.querySelectorAll('.project-card, .featured-group .featured').forEach(function(item) {
+                    var matches = filter === 'playable' ? item.hasAttribute('data-playable') : item.dataset.category === filter;
+                    item.hidden = filter !== 'all' && !matches;
                 });
                 // Hide a group (and its heading) when none of its projects match
                 document.querySelectorAll('.project-group').forEach(function(group) {
