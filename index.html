@@ -793,6 +793,9 @@
         .play-intro { max-width: 700px; margin: -5px auto 20px; line-height: 1.6; opacity: 0.85; }
         .play-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); align-items: start; gap: 25px; max-width: 1100px; margin: 0 auto 40px; }
         .play-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+        .play-row .featured h3 { margin-bottom: 14px; }
+        /* Brief highlight on the card a "View project" / "Play in Browser" link jumps to */
+        .jump-flash { outline: 3px solid #2ec4e6; outline-offset: 4px; }
         a.btn { text-decoration: none; }
         .btn.secondary, .btn.secondary:hover, .btn.secondary:focus-visible { background: transparent; color: #ecf0f1; box-shadow: inset 0 0 0 2px var(--accent); }
         .btn.secondary:hover, .btn.secondary:focus-visible { background: rgba(255, 255, 255, 0.08); }
@@ -920,27 +923,23 @@
             <p class="featured-heading">Play in Browser</p>
             <p class="play-intro">Games you can play right here on this site. No download or install needed.</p>
             <div class="play-row">
-                <article class="featured">
+                <article class="featured" id="play-rotline" tabindex="-1">
                     <video src="previews/rotline.mp4" poster="thumbs/rotline.webp" autoplay muted loop playsinline aria-label="Rotline gameplay preview"></video>
                     <div>
                         <h3>Rotline</h3>
-                        <p class="tags">Custom engine · C++ · WebAssembly · 3D · Raycast FPS · PC &amp; Web</p>
-                        <p>A retro raycast shooter set after a lab virus outbreak. Fight through four zones of mutated people and animals to recover the cure, running on my own C++ engine compiled for the browser. Plays with keyboard and mouse or touch controls.</p>
                         <div class="play-actions">
                             <a class="btn" href="rotline/">Play now</a>
-                            <button class="btn secondary" data-modal="modal18">About the game</button>
+                            <a class="btn secondary" href="#card-rotline" data-jump>View project</a>
                         </div>
                     </div>
                 </article>
-                <article class="featured">
+                <article class="featured" id="play-swarm-harvester" tabindex="-1">
                     <video src="previews/swarmHarvester.mp4" poster="thumbs/swarmHarvester.webp" autoplay muted loop playsinline aria-label="Swarm Harvester gameplay preview"></video>
                     <div>
                         <h3>Swarm Harvester</h3>
-                        <p class="tags">Bevy · Rust · WebAssembly · 2D · Strategy · PC, Android &amp; Web</p>
-                        <p>Command a swarm of 2,000 autonomous drones. They mine and haul on their own; you steer them with a beacon, barriers and three abilities, and decide how much of the swarm to risk on the rich deposits under the vents.</p>
                         <div class="play-actions">
                             <a class="btn" href="swarm-harvester/">Play now</a>
-                            <button class="btn secondary" data-modal="modal19">About the game</button>
+                            <a class="btn secondary" href="#card-swarm-harvester" data-jump>View project</a>
                         </div>
                     </div>
                 </article>
@@ -959,8 +958,8 @@
                 <div class="projects">
                     <button class="project-card phone" data-modal="modal13" data-category="apps" data-preview="previews/phasmoCompanion.mp4"><span class="thumb"><span class="screen"><img src="thumbs/phasmoCompanionCard.webp" alt="" loading="lazy"></span></span><span class="card-text">PhasmoCompanion<small>Android Studio · Kotlin · App · Game/AI Companion · Android</small></span></button>
                     <button class="project-card" data-modal="modal12" data-category="games" data-preview="previews/elementalWizardWindows.mp4"><span class="thumb"><img src="thumbs/elementalWizardWindows.webp" alt="" loading="lazy"></span><span class="card-text">Elemental Wizard<small>Godot · GDScript · 2D isometric · Shooter · PC &amp; Android</small></span></button>
-                    <button class="project-card" data-modal="modal19" data-category="games" data-playable data-preview="previews/swarmHarvester.mp4"><span class="thumb"><img src="thumbs/swarmHarvester.webp" alt="" loading="lazy"></span><span class="card-text">Swarm Harvester<small>Bevy · Rust · WebAssembly · 2D · Strategy · PC, Android &amp; Web</small></span></button>
-                    <button class="project-card" data-modal="modal18" data-category="games" data-playable data-preview="previews/rotline.mp4"><span class="thumb"><img src="thumbs/rotline.webp" alt="" loading="lazy"></span><span class="card-text">Rotline<small>Custom engine · C++ · WebAssembly · 3D · Raycast FPS · PC &amp; Web</small></span></button>
+                    <button class="project-card" id="card-swarm-harvester" data-modal="modal19" data-category="games" data-playable data-preview="previews/swarmHarvester.mp4"><span class="thumb"><img src="thumbs/swarmHarvester.webp" alt="" loading="lazy"></span><span class="card-text">Swarm Harvester<small>Bevy · Rust · WebAssembly · 2D · Strategy · PC, Android &amp; Web</small></span></button>
+                    <button class="project-card" id="card-rotline" data-modal="modal18" data-category="games" data-playable data-preview="previews/rotline.mp4"><span class="thumb"><img src="thumbs/rotline.webp" alt="" loading="lazy"></span><span class="card-text">Rotline<small>Custom engine · C++ · WebAssembly · 3D · Raycast FPS · PC &amp; Web</small></span></button>
                     <button class="project-card" data-modal="modal17" data-category="games"><span class="thumb placeholder" style="--ph-a: #2a9fd6; --ph-b: #0a2a40;"><span class="ph-title">Island Hopper</span><span class="ph-note">Video coming soon</span></span><span class="card-text">Micro Airline: Island Hopper<small>Unity · C# · 3D · Flight sim · PC &amp; Android</small></span></button>
                     <button class="project-card" data-modal="modal14" data-category="games" data-preview="previews/subEscape.mp4"><span class="thumb"><img src="thumbs/subEscape.webp" alt="" loading="lazy"></span><span class="card-text">Sub Escape<small>Unity · Blender · C# · 3D · Puzzle · PC</small></span></button>
                     <button class="project-card" data-modal="modal15" data-category="games" data-preview="previews/virtualGarden.mp4"><span class="thumb"><img src="thumbs/virtualGarden.webp" alt="" loading="lazy"></span><span class="card-text">Virtual Garden<small>Unity · C# · 3D · Farming sim · PC · Low-poly</small></span></button>
@@ -1014,7 +1013,7 @@
                 <source src="swarmHarvester.mp4" type="video/mp4">
             </video>
         </div>
-        <p><a href="swarm-harvester/" target="_blank" rel="noopener">Play it in your browser</a> (about a 15 MB download; mouse or touch).</p>
+        <p><a href="swarm-harvester/" target="_blank" rel="noopener">Play it in your browser</a> (about a 15 MB download; mouse or touch). <a href="#play-swarm-harvester" data-jump>See it under Play in Browser</a>.</p>
     </dialog>
 
     <dialog id="modal18" class="modal" aria-labelledby="modal18-title">
@@ -1027,7 +1026,7 @@
                 <source src="rotline.mp4" type="video/mp4">
             </video>
         </div>
-        <p><a href="rotline/" target="_blank" rel="noopener">Play it in your browser</a> (keyboard and mouse, or touch controls on phones and tablets).</p>
+        <p><a href="rotline/" target="_blank" rel="noopener">Play it in your browser</a> (keyboard and mouse, or touch controls on phones and tablets). <a href="#play-rotline" data-jump>See it under Play in Browser</a>.</p>
     </dialog>
 
     <dialog id="modal17" class="modal" aria-labelledby="modal17-title">
@@ -1222,6 +1221,22 @@
     <!-- JavaScript for Dialogs and Form Submission -->
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Links between a play card and its project card: close any dialog, clear a filter
+        // that hides the target, then scroll to it and highlight it briefly
+        document.querySelectorAll('a[data-jump]').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                var target = document.querySelector(link.getAttribute('href'));
+                if (!target) return;
+                event.preventDefault();
+                document.querySelectorAll('dialog.modal[open]').forEach(function(dialog) { dialog.close(); });
+                if (target.hidden) document.querySelector('.filters [data-filter="all"]').click();
+                target.scrollIntoView({ block: 'center' });
+                target.focus({ preventScroll: true });
+                target.classList.add('jump-flash');
+                setTimeout(function() { target.classList.remove('jump-flash'); }, 1800);
+            });
+        });
 
         // Open a project's dialog from its card (or the featured project's button)
         document.querySelectorAll('[data-modal]').forEach(function(card) {
