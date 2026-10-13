@@ -981,7 +981,7 @@
                     <button class="project-card" id="card-swarm-harvester" data-modal="modal19" data-category="games" data-playable data-preview="previews/swarmHarvester.mp4"><span class="thumb"><img src="thumbs/swarmHarvester.webp" alt="" loading="lazy"></span><span class="card-text">Swarm Harvester<small>Bevy · Rust · WebAssembly · 2D · Strategy · PC, Android &amp; Web</small></span></button>
                     <button class="project-card" id="card-rotline" data-modal="modal18" data-category="games" data-playable data-preview="previews/rotline.mp4"><span class="thumb"><img src="thumbs/rotline.webp" alt="" loading="lazy"></span><span class="card-text">Rotline<small>Custom engine · C++ · WebAssembly · 3D · Raycast FPS · PC &amp; Web</small></span></button>
                     <button class="project-card" id="card-neon-grid-dash" data-modal="modal21" data-category="games" data-playable data-preview="previews/neonGridDash.mp4"><span class="thumb"><img src="thumbs/neonGridDash.webp" alt="" loading="lazy"></span><span class="card-text">Neon Grid Dash<small>TypeScript · HTML5 Canvas · 2D · Arcade · Web</small></span></button>
-                    <button class="project-card" data-modal="modal22" data-category="games"><span class="thumb"><img src="thumbs/vrArcheryTargetTrial.webp" alt="" loading="lazy"></span><span class="card-text">VR Archery Target Trial<small>Unity · C# · 3D · VR archery · Meta Quest &amp; PC</small></span></button>
+                    <button class="project-card" data-modal="modal22" data-category="games" data-preview="previews/vrArcheryTargetTrial.mp4"><span class="thumb"><img src="thumbs/vrArcheryTargetTrial.webp" alt="" loading="lazy"></span><span class="card-text">VR Archery Target Trial<small>Unity · C# · 3D · VR archery · Meta Quest &amp; PC</small></span></button>
                     <button class="project-card" data-modal="modal17" data-category="games" data-preview="previews/islandHopper.mp4"><span class="thumb"><img src="thumbs/islandHopper.webp" alt="" loading="lazy"></span><span class="card-text">Micro Airline: Island Hopper<small>Unity · C# · 3D · Flight sim · PC &amp; Android</small></span></button>
                     <button class="project-card" data-modal="modal14" data-category="games" data-preview="previews/subEscape.mp4"><span class="thumb"><img src="thumbs/subEscape.webp" alt="" loading="lazy"></span><span class="card-text">Sub Escape<small>Unity · Blender · C# · 3D · Puzzle · PC</small></span></button>
                     <button class="project-card" data-modal="modal15" data-category="games" data-preview="previews/virtualGarden.mp4"><span class="thumb"><img src="thumbs/virtualGarden.webp" alt="" loading="lazy"></span><span class="card-text">Virtual Garden<small>Unity · C# · 3D · Farming sim · PC · Low-poly</small></span></button>
@@ -1041,9 +1041,13 @@
     <dialog id="modal22" class="modal" aria-labelledby="modal22-title">
         <button class="close" aria-label="Close">&times;</button>
         <h3 id="modal22-title">VR Archery Target Trial</h3>
-        <p>VR Archery Target Trial is a 360-degree VR shooting gallery made in Unity for Meta Quest. You draw a two-handed bow that aims along the line between your hands, with haptics that follow the string tension, and shoot drone targets that orbit all around you in a timed trial. Shots score by distance and accuracy, and a wrist display and scoreboard track your run.</p>
+        <p>VR Archery Target Trial is a 360-degree VR shooting gallery made in Unity for Meta Quest. Drone targets orbit all around you in a timed trial, and you take them down with a bow, a crossbow or a slingshot. Each is held in two hands and aims along the line between them, with haptics that follow the string tension. Shots score by distance and accuracy, and a wrist display and scoreboard track your run.</p>
         <p>It is built on OpenXR and the XR Interaction Toolkit, and falls back to keyboard and mouse when no headset is connected, so it also runs as a desktop game on Windows. All sounds are synthesised and spatialised in code.</p>
-        <img src="vrArcheryTargetTrial.webp" alt="VR Archery Target Trial in desktop mode: a drawn bow aimed at a drone target" loading="lazy">
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/vrArcheryTargetTrial.webp">
+                <source src="vrArcheryTargetTrial.mp4" type="video/mp4">
+            </video>
+        </div>
     </dialog>
 
     <dialog id="modal19" class="modal" aria-labelledby="modal19-title">
