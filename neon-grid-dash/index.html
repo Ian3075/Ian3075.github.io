@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#05060d" />
+    <meta
+      name="description"
+      content="Neon Grid Dash — a minimalist reflex arcade game. Trail a glowing line across the grid and dodge shapes that pulse to the beat."
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <title>Neon Grid Dash</title>
+    <script type="module" crossorigin src="./assets/index-II3O3oYL.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CZSMxRH2.css">
+  </head>
+  <body data-mode="menu">
+    <canvas id="game"></canvas>
+
+    <div class="hud">
+      <div class="hud-score">
+        <div id="score">0</div>
+        <div id="best" class="dim">BEST 0</div>
+      </div>
+      <div class="hud-mult">
+        <div id="mult">x1</div>
+        <div class="bar"><i id="combo"></i></div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="pauseBtn" type="button" aria-label="Pause">II</button>
+      <button id="mute" type="button" aria-label="Mute sound" aria-pressed="false">♪</button>
+    </div>
+
+    <section id="menu" class="panel">
+      <h1>NEON <span>GRID</span> DASH</h1>
+      <p class="tagline">Dodge the shapes. Ride the beat.</p>
+      <button class="cta" type="button">CLICK TO PLAY</button>
+      <ul class="how">
+        <li><b class="cyan">MOVE</b> <span id="hintMove">your ship follows the cursor</span></li>
+        <li><b class="cyan">DASH</b> <span id="hintDash">click to phase through danger</span></li>
+        <li><b class="green">ORBS</b> raise your multiplier — keep the combo alive</li>
+      </ul>
+      <p id="menuBest" class="dim">BEST 0</p>
+    </section>
+
+    <section id="over" class="panel">
+      <h2>GRID LOCKED</h2>
+      <p id="overNew" class="green" hidden>NEW BEST</p>
+      <p id="overScore" class="big">0</p>
+      <p id="overBest" class="dim">BEST 0</p>
+      <button class="cta" type="button">CLICK TO RETRY</button>
+    </section>
+
+    <section id="pause" class="panel">
+      <h2>PAUSED</h2>
+      <button class="cta" type="button">CLICK TO RESUME</button>
+    </section>
+
+  </body>
+</html>
