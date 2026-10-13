@@ -236,8 +236,8 @@
         /* Latest projects: featured cards side by side */
         .featured-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: start;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+            align-items: stretch;
             gap: 25px;
             max-width: 1100px;
             margin: 0 auto 40px;
@@ -916,6 +916,15 @@
                         <button class="btn" data-modal="modal18">Watch the demo</button>
                     </div>
                 </article>
+                <article class="featured" data-category="games">
+                    <video src="previews/islandHopper.mp4" poster="thumbs/islandHopper.webp" autoplay muted loop playsinline aria-label="Micro Airline: Island Hopper gameplay preview"></video>
+                    <div>
+                        <h3>Micro Airline: Island Hopper</h3>
+                        <p class="tags">Unity · C# · 3D · Flight sim · PC &amp; Android</p>
+                        <p>A cozy aviation sim where you run a bush-plane and seaplane airline across twelve islands, with a detailed flight model you can fly with assists or at full study-level realism.</p>
+                        <button class="btn" data-modal="modal17">Watch the demo</button>
+                    </div>
+                </article>
             </div>
             </div>
 
@@ -945,7 +954,7 @@
                     </div>
                 </article>
                 <article class="featured" id="play-neon-grid-dash" tabindex="-1">
-                    <img class="cover" src="thumbs/neonGridDash.svg" alt="Neon Grid Dash cover art" loading="lazy">
+                    <video src="previews/neonGridDash.mp4" poster="thumbs/neonGridDash.webp" autoplay muted loop playsinline aria-label="Neon Grid Dash gameplay preview"></video>
                     <div>
                         <h3>Neon Grid Dash</h3>
                         <div class="play-actions">
@@ -971,7 +980,7 @@
                     <button class="project-card" data-modal="modal12" data-category="games" data-preview="previews/elementalWizardWindows.mp4"><span class="thumb"><img src="thumbs/elementalWizardWindows.webp" alt="" loading="lazy"></span><span class="card-text">Elemental Wizard<small>Godot · GDScript · 2D isometric · Shooter · PC &amp; Android</small></span></button>
                     <button class="project-card" id="card-swarm-harvester" data-modal="modal19" data-category="games" data-playable data-preview="previews/swarmHarvester.mp4"><span class="thumb"><img src="thumbs/swarmHarvester.webp" alt="" loading="lazy"></span><span class="card-text">Swarm Harvester<small>Bevy · Rust · WebAssembly · 2D · Strategy · PC, Android &amp; Web</small></span></button>
                     <button class="project-card" id="card-rotline" data-modal="modal18" data-category="games" data-playable data-preview="previews/rotline.mp4"><span class="thumb"><img src="thumbs/rotline.webp" alt="" loading="lazy"></span><span class="card-text">Rotline<small>Custom engine · C++ · WebAssembly · 3D · Raycast FPS · PC &amp; Web</small></span></button>
-                    <button class="project-card" id="card-neon-grid-dash" data-modal="modal21" data-category="games" data-playable><span class="thumb"><img src="thumbs/neonGridDash.svg" alt="" loading="lazy"></span><span class="card-text">Neon Grid Dash<small>TypeScript · HTML5 Canvas · 2D · Arcade · Web</small></span></button>
+                    <button class="project-card" id="card-neon-grid-dash" data-modal="modal21" data-category="games" data-playable data-preview="previews/neonGridDash.mp4"><span class="thumb"><img src="thumbs/neonGridDash.webp" alt="" loading="lazy"></span><span class="card-text">Neon Grid Dash<small>TypeScript · HTML5 Canvas · 2D · Arcade · Web</small></span></button>
                     <button class="project-card" data-modal="modal22" data-category="games"><span class="thumb"><img src="thumbs/vrArcheryTargetTrial.webp" alt="" loading="lazy"></span><span class="card-text">VR Archery Target Trial<small>Unity · C# · 3D · VR archery · Meta Quest &amp; PC</small></span></button>
                     <button class="project-card" data-modal="modal17" data-category="games" data-preview="previews/islandHopper.mp4"><span class="thumb"><img src="thumbs/islandHopper.webp" alt="" loading="lazy"></span><span class="card-text">Micro Airline: Island Hopper<small>Unity · C# · 3D · Flight sim · PC &amp; Android</small></span></button>
                     <button class="project-card" data-modal="modal14" data-category="games" data-preview="previews/subEscape.mp4"><span class="thumb"><img src="thumbs/subEscape.webp" alt="" loading="lazy"></span><span class="card-text">Sub Escape<small>Unity · Blender · C# · 3D · Puzzle · PC</small></span></button>
@@ -1021,6 +1030,11 @@
         <h3 id="modal21-title">Neon Grid Dash</h3>
         <p>Neon Grid Dash is a minimalist, fast-paced reflex arcade game that runs in the browser. Your ship trails a glowing line across a grid while geometric obstacles show a dashed outline for two beats, then bloom on the beat. Dash to phase through danger for a moment, and collect orbs to push your score multiplier up to x9 before the combo bar drains. The tempo climbs from 96 to 160 BPM as a run goes on, with new shapes unlocking along the way.</p>
         <p>It is written in TypeScript with no runtime dependencies: everything is drawn on a 2D canvas with additive blending, and the soundtrack and sound effects are synthesised at runtime with WebAudio, stepped by the same beat clock that drives the obstacles. It plays with a mouse or with touch.</p>
+        <div class="video-container">
+            <video controls preload="none" poster="thumbs/neonGridDash.webp">
+                <source src="neonGridDash.mp4" type="video/mp4">
+            </video>
+        </div>
         <p><a href="neon-grid-dash/" target="_blank" rel="noopener">Play it in your browser</a> (mouse or touch). <a href="#play-neon-grid-dash" data-jump>See it under Play in Browser</a>.</p>
     </dialog>
 
